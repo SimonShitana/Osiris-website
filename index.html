@@ -9,12 +9,25 @@
     <link rel="stylesheet" href="css/pages/auth.css">
 </head>
 <body class="landing-page">
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <header class="header header--transparent" id="header">
+        <nav class="navbar container">
+            <a href="home.html" class="navbar__logo"><img src="assets/Osiris%20logo.png" alt="Osiris" class="logo-img"></a>
+            <div class="navbar__menu" id="navbarMenu">
+                <ul class="navbar__list" id="navbarList"></ul>
+            </div>
+            <button class="navbar__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+
     <div class="landing-bg" id="landingBg" aria-hidden="true">
         <div class="landing-bg__orb landing-bg__orb--1"></div>
         <div class="landing-bg__orb landing-bg__orb--2"></div>
     </div>
 
     <div class="landing">
+
         <div class="landing__hero">
             <div class="landing__logo-wrap">
                 <img src="assets/Osiris%20logo.png" alt="Osiris" class="landing__logo">
@@ -82,5 +95,7 @@
     <script src="js/firebase-db.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/pages/auth.js"></script>
+    <script src="js/nav.js"></script>
 </body>
 </html>
+
