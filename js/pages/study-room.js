@@ -65,26 +65,30 @@ async function getStaticMusicTracks() {
     const configured = Array.isArray(OSIRIS_CONFIG?.musicTracks) ? OSIRIS_CONFIG.musicTracks.filter((t) => t.file) : [];
 
     try {
-        const response = await fetch('resources/music/', { cache: 'no-store' });
-        if (!response.ok) return configured;
-        const html = await response.text();
-        const matches = [...html.matchAll(/href=["']([^"']+\.mp3(?:\?[^"']*)?)["']/gi)];
-        if (!matches.length) return configured;
+        // Directory listing is often disabled on production hosts (Render), so we load
+        // a pre-generated manifest instead.
+        const manifestRes = await fetch('resources/music/manifest.json', { cache: 'no-store' });
+        if (!manifestRes.ok) return configured;
+        const files = await manifestRes.json();
+        if (!Array.isArray(files) || !files.length) return configured;
 
-        return matches.map((match, index) => {
-            const raw = match[1].replace(/^\.\//, '').split('?')[0];
-            const hrefPath = raw.replace(/^\/+/, '');
-            const clean = hrefPath.replace(/^resources\/music\//i, '');
-            const safeFile = hrefPath.startsWith('resources/music/') ? hrefPath : `resources/music/${clean}`;
-            const displayName = decodeURIComponent(clean).replace(/\.mp3$/i, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+        return files.map((filePath, index) => {
+            const safeFile = String(filePath);
+            const clean = safeFile.replace(/^resources\/music\//i, '');
+            const displayName = decodeURIComponent(clean)
+                .replace(/\.mp3$/i, '')
+                .replace(/[_-]+/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
             return {
                 id: `static-music-${index}`,
                 title: displayName || `Track ${index + 1}`,
                 artist: '',
-                file: safeFile,
+                file: safeFile.startsWith('resources/music/') ? safeFile : `resources/music/${clean}`,
                 source: 'static'
             };
         });
+
     } catch (_) {
         return configured;
     }
@@ -284,24 +288,27 @@ function initMusic() {
         const artist = document.getElementById('musicArtist').value.trim();
 
         try {
-            const fileData = await readFileAsDataURL(file);
+            // Do not store the full mp3 as base64 in localStorage.
+            // Persist lightweight metadata only; audio should play from server/static.
             const tracks = getMusicTracks();
             tracks.unshift({
                 id: 'music_' + Date.now(),
                 title,
                 artist,
-                file: fileData,
+                file: null,
                 fileName: file.name,
                 uploaded: true,
-                uploadedAt: new Date().toISOString()
+                uploadedAt: new Date().toISOString(),
+                source: 'custom'
             });
             saveMusicTracks(tracks);
             uploadForm.reset();
             await renderMusic();
-            OsirisNotify?.success('Track added', `${title} has been added to the study music library.`);
+            OsirisNotify?.success('Track added', `${title} added. (Custom audio is not persisted locally to avoid quota issues.)`);
         } catch (error) {
             OsirisNotify?.error('Upload Error', error.message || 'Could not read the audio file.');
         }
+
     });
 }
 
