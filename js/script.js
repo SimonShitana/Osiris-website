@@ -131,7 +131,8 @@ function initContactForm() {
     if (!form) return;
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = OSIRIS_CONFIG?.founder?.email || 'osiris11978@gmail.com';
+        const email = OSIRIS_CONFIG?.founder?.email || 'simonshitana21@gmail.com';
+
         if (reply) {
             reply.textContent = `Message received. Simon will reply within 24 hours at ${email}.`;
         }
@@ -392,10 +393,15 @@ function initAIChat() {
     widget.id = 'osirisAIWidget';
     widget.className = 'ai-widget';
     widget.innerHTML = `
-        <button type="button" class="ai-widget__toggle" id="aiToggle" aria-label="Open Osiris AI"><i class="ri-robot-2-line"></i></button>
+        <button type="button" class="ai-widget__toggle" id="aiToggle" aria-label="Open Osiris AI">
+            <img src="${OSIRIS_CONFIG?.assets?.logo || 'assets/Osiris%20logo.png'}" alt="Osiris" style="width:28px;height:28px;object-fit:contain" />
+        </button>
         <div class="ai-widget__panel" id="aiPanel" hidden>
             <div class="ai-widget__header">
-                <div><strong>Osiris AI</strong><small>Integrated assistant · Ask anything</small></div>
+                <div style="display:flex;align-items:center;gap:0.75rem">
+                    <img src="${OSIRIS_CONFIG?.assets?.logo || 'assets/Osiris%20logo.png'}" alt="Osiris" style="width:30px;height:30px;object-fit:contain" />
+                    <div><strong>Osiris AI</strong><small>Integrated assistant · Ask anything</small></div>
+                </div>
                 <button type="button" id="aiClose" aria-label="Close"><i class="ri-close-line"></i></button>
             </div>
             <div class="ai-widget__messages" id="aiMessages">
@@ -406,6 +412,7 @@ function initAIChat() {
                 <button type="submit"><i class="ri-send-plane-fill"></i></button>
             </form>
         </div>`;
+
     document.body.appendChild(widget);
     const panel = document.getElementById('aiPanel');
     document.getElementById('aiToggle').addEventListener('click', () => {

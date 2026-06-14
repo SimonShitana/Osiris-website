@@ -24,9 +24,10 @@ const OSIRIS_CONFIG = {
         email: 'unescopeereducators@gmail.com',
         label: 'UNESCO Peer Educators'
     },
+
     founder: {
         name: 'Simon Shitana',
-        email: 'osiris11978@gmail.com',
+        email: 'simonshitana21@gmail.com',
         phone: '0817687816',
         program: 'Mechanical Engineering',
         startYear: 2024,
@@ -35,6 +36,7 @@ const OSIRIS_CONFIG = {
         referenceYearOfStudy: 3,
         intro: 'Simon Shitana is the founder and sole administrator of Osiris — a mechanical engineering student, developer, and educator building a platform where students share resources, support each other, and grow together.'
     },
+
     channelCategories: ['leadership', 'wellness', 'engineering', 'motivation'],
     googleForms: {
         main: 'https://docs.google.com/forms/d/e/1FAIpQLScXAFrCG1seW42CMP0XP2TFQYrTzz4Ul-GtONYjSJe6CR3Quw/viewform?usp=publish-editor',
