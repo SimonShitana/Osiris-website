@@ -78,9 +78,20 @@ const OSIRIS_CONFIG = {
         'Materials Science': [
             { id: 'materials-ref', title: 'Materials Science Quick Reference', type: 'Guide', file: 'resources/pdfs/materials-science-ref.pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' },
             { id: 'materials-bank', title: 'Materials Science Question Bank', type: 'Past Paper', file: 'resources/pdfs/materials-question-bank.pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' }
+        ],
+        'Math for Engineers': [
+            { id: 'mfe-guide', title: 'Math for Engineers — 1 Study guide', type: 'Guide', file: 'resources/pdfs/Math for Engineers/1 Study guide.pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' },
+            { id: 'mfe-ch1', title: 'Math for Engineers — Chapter 1 (Functions)', type: 'Notes', file: 'resources/pdfs/Math for Engineers/Chapter 1 (Functions).pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' },
+            { id: 'mfe-ch2', title: 'Math for Engineers — Chapter 2 (Differentition)', type: 'Notes', file: 'resources/pdfs/Math for Engineers/Chapter 2 (Differentition).pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' },
+            { id: 'mfe-ch3', title: 'Math for Engineers — Chapter 3 (Integration)', type: 'Notes', file: 'resources/pdfs/Math for Engineers/Chapter 3 (Integration).pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' },
+            { id: 'mfe-ch4', title: 'Math for Engineers — Chapter 4 (Sequences and Series of Numbers)', type: 'Notes', file: 'resources/pdfs/Math for Engineers/Chapter 4 (Sequences and Series of Numbers).pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' },
+            { id: 'mfe-ch5', title: 'Math for Engineers — Chapter 5 (Polar Coordinates)', type: 'Notes', file: 'resources/pdfs/Math for Engineers/Chapter 5 (Polar Coordinates).pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' },
+            { id: 'mfe-ch6', title: 'Math for Engineers — Chapter 6 (Lines & Planes)', type: 'Notes', file: 'resources/pdfs/Math for Engineers/Chapter 6 (Lines & Planes).pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' },
+            { id: 'mfe-ch7', title: 'Math for Engineers — Chapter 7 (Systems of Linear Equations)', type: 'Notes', file: 'resources/pdfs/Math for Engineers/Chapter 7 (Systems of Linear Equations).pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' }
         ]
     },
     /** Static music tracks — place files in resources/music/ */
+
     musicTracks: [
         { id: 'music-readme', title: 'Add your .mp3 files to resources/music/', artist: 'Osiris', file: '' }
     ],

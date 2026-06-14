@@ -64,6 +64,45 @@ const UNIVERSITY_MODULES = [
 
     'Academic Literacy',
 
+    'Academic literacy II',
+
+    'Engineering Physics 2',
+
+    'Engineerin Economics',
+
+    'engineering entrepreneurship',
+
+    'engineering-mechanics-ii',
+
+    'Fundamental of Electrical engineering',
+
+    'Physics for engineers 1st year',
+
+    'workshops',
+
+    'Mechanics-2',
+
+    'math for engineers',
+
+    'Math for Engineers',
+
+    'Math for Engineers/1 Study guide.pdf',
+
+    'Math for Engineers/Chapter 1 (Functions).pdf',
+
+    'Math for Engineers/Chapter 2 (Differentition).pdf',
+
+    'Math for Engineers/Chapter 3 (Integration).pdf',
+
+    'Math for Engineers/Chapter 4 (Sequences and Series of Numbers).pdf',
+
+    'Math for Engineers/Chapter 5 (Polar Coordinates).pdf',
+
+    'Math for Engineers/Chapter 6 (Lines & Planes).pdf',
+
+    'Math for Engineers/Chapter 7 (Systems of Linear Equations).pdf',
+
+
     'Chem for engineers',
 
     'Computing Fundamentals',
