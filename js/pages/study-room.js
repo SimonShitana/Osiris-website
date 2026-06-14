@@ -39,8 +39,27 @@ function getMusicTracks() {
 }
 
 function saveMusicTracks(tracks) {
-    localStorage.setItem(MUSIC_KEY, JSON.stringify(tracks));
+    // IMPORTANT: do NOT store full audio files as base64 in localStorage.
+    // localStorage quota will quickly be exceeded and break uploads.
+    // We only persist lightweight metadata for custom tracks; audio playback
+    // should come from server/Firestore or be reuploaded.
+    try {
+        const trimmed = (tracks || []).slice(0, 12).map((t) => ({
+            id: t.id,
+            title: t.title,
+            artist: t.artist,
+            file: null, // remove base64 payload
+            fileName: t.fileName,
+            uploaded: t.uploaded,
+            uploadedAt: t.uploadedAt,
+            source: t.source || 'custom'
+        }));
+        localStorage.setItem(MUSIC_KEY, JSON.stringify(trimmed));
+    } catch (_) {
+        // If quota still fails, skip persisting.
+    }
 }
+
 
 async function getStaticMusicTracks() {
     const configured = Array.isArray(OSIRIS_CONFIG?.musicTracks) ? OSIRIS_CONFIG.musicTracks.filter((t) => t.file) : [];
