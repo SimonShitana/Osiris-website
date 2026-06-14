@@ -422,6 +422,9 @@ function renderModuleGrid(gridId, searchId) {
             </button>
             <div class="module-folder__files">
                 ${renderModuleFiles(name)}
+                ${OsirisAuth?.isAdmin() ? `<div style="margin-top:0.75rem;display:flex;gap:0.5rem;justify-content:flex-end;">
+                    <button type="button" class="btn btn--ghost btn--sm module-folder-hide" data-module="${escapeAttr(name)}" title="Hide this module from everyone">Hide folder</button>
+                </div>` : ''}
             </div>
         </div>`;
     }).join('');
