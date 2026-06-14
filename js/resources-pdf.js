@@ -16,7 +16,11 @@ const STATIC_HIDDEN_KEY = 'osiris_hidden_static_resources';
 
 const UNIVERSITY_MODULES = [
 
-    'Skills Portfolio', 'Academic Literacy I', 'Academic Literacy II', 'Digital Literacy', 'National and Global Citizenship',
+    'Skills Portfolio',
+
+    // Existing
+
+    'Academic Literacy I', 'Academic Literacy II', 'Digital Literacy', 'National and Global Citizenship',
 
     'Introduction to Civil Engineering', 'Engineering Mathematics I', 'Engineering Mathematics Support I', 'Engineering Drawing',
 
@@ -54,9 +58,38 @@ const UNIVERSITY_MODULES = [
 
     'RF and Microwave Engineering', 'Database Systems', 'Operating Systems', 'Control Engineering', 'Embedded Systems and Robotics',
 
-    'Wireless Communication', 'Digital Signal Processing', 'Computer Software Engineering'
+    'Wireless Communication', 'Digital Signal Processing', 'Computer Software Engineering',
+
+    // Newly added folders under resources/pdfs/ (from your folder list)
+
+    'Academic Literacy',
+
+    'Chem for engineers',
+
+    'Computing Fundamentals',
+
+    'Engineering Economics',
+
+    'Engineering Drawing',
+
+    'Engineering Entrepreneurship',
+
+    'Engineering Math 2',
+
+    'Engineering Mechanics II',
+
+    'Fundamental of Electrical Engineering',
+
+    'Introduction to Mechanical Engineering',
+
+    'Mechanics-2',
+
+    'Physics for Engineers 1st year',
+
+    'Workshops'
 
 ];
+
 
 
 
