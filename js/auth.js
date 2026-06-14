@@ -337,9 +337,11 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const submitBtn = authForm.querySelector('[type="submit"]');
         if (authError) authError.textContent = '';
-        submitBtn.disabled = true;
+            submitBtn.disabled = true;
         const originalLabel = submitBtn.textContent;
-        submitBtn.textContent = 'Please wait…';
+        // Keep UI fast/clean on slow networks
+        submitBtn.textContent = 'Creating…';
+
 
         try {
             if (mode === 'admin') {

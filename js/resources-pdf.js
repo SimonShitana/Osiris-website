@@ -76,6 +76,9 @@ const UNIVERSITY_MODULES = [
 
     'Engineering Math 2',
 
+    'Math for Engineers',
+
+
     'Engineering Mechanics II',
 
     'Fundamental of Electrical Engineering',
