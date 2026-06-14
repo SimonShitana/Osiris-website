@@ -1,17 +1,22 @@
+
 /**
  * Osiris Channel - one-way admin broadcasts with anonymous reactions and polls.
+ * Firestore-driven (real admin posts reflect immediately).
  */
-const CHANNEL_KEY = 'osiris_channel_posts';
+
 const CHANNEL_VOTES_KEY = 'osiris_channel_votes';
 
-function getChannelPosts() {
-    try { return JSON.parse(localStorage.getItem(CHANNEL_KEY) || '[]'); } catch { return []; }
-}
+let livePosts = [];
 
-function saveChannelPosts(posts) {
-    localStorage.setItem(CHANNEL_KEY, JSON.stringify(posts));
+function setLivePosts(posts) {
+    livePosts = Array.isArray(posts) ? posts : [];
     window.dispatchEvent(new CustomEvent('osiris-channel-update'));
 }
+
+function getChannelPosts() {
+    return livePosts;
+}
+
 
 
 function getChannelVotes() {
@@ -23,45 +28,10 @@ function saveChannelVotes(votes) {
 }
 
 function seedChannelIfEmpty() {
-    if (getChannelPosts().length) return;
-    const now = Date.now();
-    saveChannelPosts([
-        {
-            id: 'seed-1',
-            type: 'article',
-            title: 'Welcome to the Osiris Channel',
-            body: 'This is the official one-way Osiris broadcast channel. Admins publish updates, articles, polls, resources, and project news. Followers can react or vote privately.',
-            category: 'motivation',
-            image: null,
-            pinned: true,
-            author: 'Simon Shitana',
-            createdAt: new Date(now - 86400000 * 2).toISOString(),
-            reads: 487,
-            reactions: { heart: 42, fire: 31, clap: 18 },
-            poll: null
-        },
-        {
-            id: 'seed-2',
-            type: 'poll',
-            title: 'What should Osiris upload next?',
-            body: 'Vote privately. Your name, phone number, and profile picture are not shown to other followers.',
-            category: 'resources',
-            image: null,
-            pinned: false,
-            author: 'Simon Shitana',
-            createdAt: new Date(now - 86400000).toISOString(),
-            reads: 312,
-            reactions: { heart: 20, fire: 12, clap: 9 },
-            poll: {
-                options: [
-                    { text: 'Past papers', votes: 18 },
-                    { text: 'Study guides', votes: 12 },
-                    { text: 'Project tutorials', votes: 8 }
-                ]
-            }
-        }
-    ]);
+    // Removed demo/template seeding.
+    // Channel now reflects only real data published by admins (Firestore/local published posts).
 }
+
 
 function formatDate(iso) {
     return new Date(iso).toLocaleString('en', { dateStyle: 'medium', timeStyle: 'short' });
@@ -231,6 +201,7 @@ function bindChannelEvents() {
 }
 
 function initAdminComposer() {
+
     const panel = document.getElementById('adminComposer');
     if (!panel || !OsirisAuth?.isAdmin()) {
         if (panel) panel.hidden = true;
@@ -327,15 +298,34 @@ function initChannelDirectory() {
 
 document.addEventListener('DOMContentLoaded', () => {
     if (!document.getElementById('channelFeed')) return;
-    seedChannelIfEmpty();
-    renderChannelFeed();
+
+    // Subscribe to Firestore channel posts.
+    const unsub = OsirisDB?.subscribeChannelPosts?.((posts) => {
+        const normalized = (posts || []).map((p) => ({
+            id: p.id,
+            type: p.type || 'message',
+            title: p.title || 'Untitled',
+            body: p.body || '',
+            category: p.category || 'leadership',
+            image: p.image || null,
+            pinned: !!p.pinned,
+            author: p.author || 'Osiris Admin',
+            createdAt: p.createdAt?.toDate ? p.createdAt.toDate().toISOString() : (p.createdAt || new Date().toISOString()),
+            reads: p.reads || 0,
+            reactions: p.reactions || { heart: 0, fire: 0, clap: 0 },
+            poll: p.poll || null
+        }));
+
+        setLivePosts(normalized);
+        renderChannelFeed();
+    });
+
     initAdminComposer();
     initChannelDirectory();
 
     document.getElementById('channelSearch')?.addEventListener('input', renderChannelFeed);
     document.getElementById('channelFilter')?.addEventListener('change', renderChannelFeed);
 
-    window.addEventListener('storage', (e) => { if (e.key === CHANNEL_KEY) renderChannelFeed(); });
     window.addEventListener('osiris-channel-update', renderChannelFeed);
 
     const quote = document.getElementById('channelQuote');
@@ -343,4 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const q = OSIRIS_CONFIG.motivationalQuotes[Math.floor(Math.random() * OSIRIS_CONFIG.motivationalQuotes.length)];
         quote.innerHTML = `<i class="ri-double-quotes-l"></i> ${escapeHtml(q.text)} <span>- ${escapeHtml(q.author)}</span>`;
     }
+
+    void unsub;
 });
+
