@@ -291,7 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
 function renderActivity(email) {
 
     const list = document.getElementById('activityList');
@@ -300,13 +299,13 @@ function renderActivity(email) {
 
     const notifs = OsirisNotifications?.getAll?.().slice(0, 8) || [];
 
-    const tasks = JSON.parse(localStorage.getItem(`osiris_study_tasks_${email}`) || '[]');
+    const localTasks = JSON.parse(localStorage.getItem(`osiris_study_tasks_${email}`) || '[]');
 
     const items = [
 
         ...notifs.map((n) => ({ text: n.title, time: n.createdAt })),
 
-        ...tasks.slice(0, 3).map((t) => ({ text: `Task: ${t.text}${t.done ? ' (done)' : ''}`, time: new Date().toISOString() }))
+        ...localTasks.slice(0, 3).map((t) => ({ text: `Task: ${t.text}${t.done ? ' (done)' : ''}`, time: new Date().toISOString() }))
 
     ];
 
@@ -316,7 +315,35 @@ function renderActivity(email) {
 
         : '<li style="color:var(--text-muted);border:none">No recent activity yet.</li>';
 
+
+    // If Firestore is available, also show recent assignment enquiries for this student.
+    if (window.OsirisFirebase?.ready && window.OsirisDB?.submitAssignmentEnquiry) {
+        try {
+            const db = OsirisFirebase.db;
+            if (db) {
+                db.collection('assignmentEnquiries')
+                    .where('studentEmail', '==', email)
+                    .orderBy('createdAt', 'desc')
+                    .limit(5)
+                    .get()
+                    .then((snap) => {
+                        const enquiries = snap.docs.map((d) => ({
+                            text: `Enquiry: ${d.data().subject || ''} · ${d.data().topic || ''}`.trim() || 'Enquiry submitted',
+                            time: d.data().createdAt
+                        }));
+                        const merged = [...items, ...enquiries]
+                            .sort((a, b) => new Date(b.time).valueOf() - new Date(a.time).valueOf())
+                            .slice(0, 8);
+                        list.innerHTML = merged.length
+                            ? merged.map((a) => `<li><span>${escapeHtml(a.text)}</span><time>${new Date(a.time).toLocaleDateString()}</time></li>`).join('')
+                            : '<li style="color:var(--text-muted);border:none">No recent activity yet.</li>';
+                    })
+                    .catch(() => {});
+            }
+        } catch (_) {}
+    }
 }
+
 
 
 
