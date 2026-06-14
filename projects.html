@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Osiris</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages/home-extras.css">
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <header class="header header--transparent" id="header">
+        <nav class="navbar container">
+            <a href="home.html" class="navbar__logo"><img src="assets/Osiris%20logo.png" alt="Osiris" class="logo-img"></a>
+            <div class="navbar__menu" id="navbarMenu">
+                <ul class="navbar__list" id="navbarList"></ul>
+            </div>
+            <button class="navbar__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="page-hero__bg"></div>
+            <div class="container">
+                <p class="section__eyebrow reveal">Portfolio</p>
+                <h1 class="reveal reveal--delay-1">Coding & <span class="gradient-text">Engineering Projects</span></h1>
+                <p class="reveal reveal--delay-2">Real work and placeholders — showcasing what Simon builds. No ads, no fluff — a personal project lab.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div id="projectComposer" class="admin-composer project-composer reveal" hidden data-admin-only>
+                    <h3><i class="ri-folder-add-line"></i> Add Project or Article</h3>
+                    <form id="projectForm">
+                        <div class="form-group"><input type="text" id="projectTitle" placeholder="Title" required></div>
+                        <div class="form-group">
+                            <select id="projectKind">
+                                <option value="Project">Project</option>
+                                <option value="Article">Article</option>
+                                <option value="Tutorial">Tutorial</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><input type="text" id="projectStack" placeholder="Tools / stack / topic" required></div>
+                        <div class="form-group"><textarea id="projectDescription" rows="4" placeholder="Description" required></textarea></div>
+                        <div class="form-group"><label class="file-label"><i class="ri-image-add-line"></i> Upload picture<input type="file" id="projectImage" accept="image/*" hidden></label></div>
+                        <button type="submit" class="btn btn--primary btn--block">Publish</button>
+                        <p id="projectMsg" class="form-reply"></p>
+                    </form>
+                </div>
+                <div class="projects-grid" id="projectsGrid"></div>
+            </div>
+        </section>
+
+        <section class="section section--alt">
+            <div class="container">
+                <div class="cta-banner reveal">
+                    <div>
+                        <h2>Want to collaborate?</h2>
+                        <p style="color:var(--text-secondary);margin-top:0.5rem">Reach out for project ideas, tutoring, or engineering support.</p>
+                    </div>
+                    <a href="mailto:osiris11978@gmail.com" class="btn btn--primary">osiris11978@gmail.com</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer"><div class="container"><div class="footer__bottom" style="border:none;padding:0"><span>&copy; <span data-current-year>2026</span> Osiris · Personal project</span></div></div></footer>
+    <script src="js/osiris-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/pages/projects.js"></script>
+</body>
+</html>

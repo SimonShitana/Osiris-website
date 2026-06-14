@@ -1,0 +1,177 @@
+/* Projects showcase */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.project-card {
+    background: var(--glass-strong);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    transition: all 0.5s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-composer {
+    margin-bottom: 2rem;
+}
+
+.project-card__image {
+    margin: -1.5rem -1.5rem 1.25rem;
+    aspect-ratio: 16 / 9;
+    background: rgba(15, 23, 42, 0.65);
+    overflow: hidden;
+}
+
+.project-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--black), var(--accent));
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(37, 99, 235, 0.35);
+    box-shadow: var(--shadow-glow);
+}
+
+.project-card:hover::before { opacity: 1; }
+
+.project-card__tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+}
+
+.project-card__status {
+    float: right;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.project-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+.project-card__stack { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+.project-card p { color: var(--text-secondary); font-size: 0.9rem; }
+
+.project-card__placeholder {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px dashed var(--glass-border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Welcome panel on home */
+.home-main { padding-top: 0; }
+
+.welcome-panel--top {
+    margin: 0;
+    padding: 8rem 0 1.25rem;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-panel--top .container {
+    max-width: 1240px;
+}
+
+.welcome-panel {
+    margin: -2rem auto 0;
+    max-width: 1240px;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
+    margin-top: 10rem;
+}
+
+.welcome-panel__inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    border-radius: var(--radius-lg);
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+}
+
+.welcome-panel--admin .welcome-panel__inner {
+    border-color: rgba(37, 99, 235, 0.35);
+    background: linear-gradient(135deg, rgba(10, 14, 23, 0.95), rgba(37, 99, 235, 0.12));
+}
+
+.welcome-panel--student .welcome-panel__inner {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.welcome-panel__avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    flex-shrink: 0;
+}
+
+.welcome-panel__text h2 { font-size: 1.35rem; margin-bottom: 0.25rem; }
+.welcome-panel__text p { color: var(--text-secondary); font-size: 0.95rem; margin: 0; }
+
+.welcome-panel__actions {
+    margin-left: auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Assignment help panel */
+.help-panel {
+    background: var(--glass-strong);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+}
+
+.help-panel__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.help-panel__header i {
+    font-size: 2rem;
+    color: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .welcome-panel__inner { flex-direction: column; text-align: center; }
+    .welcome-panel__actions { margin-left: 0; justify-content: center; }
+}

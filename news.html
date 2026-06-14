@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Updates | Osiris</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <header class="header header--transparent" id="header">
+        <nav class="navbar container">
+            <a href="home.html" class="navbar__logo"><img src="assets/Osiris%20logo.png" alt="Osiris" class="logo-img"></a>
+            <div class="navbar__menu" id="navbarMenu">
+                <ul class="navbar__list" id="navbarList"></ul>
+            </div>
+            <button class="navbar__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="page-hero__bg"></div>
+            <div class="container">
+                <p class="section__eyebrow reveal">News & Updates</p>
+                <h1 class="reveal reveal--delay-1">Announcements. <span class="gradient-text">Insights.</span></h1>
+                <p class="reveal reveal--delay-2">Blog posts, platform updates, and newsletters from Osiris.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="news-grid">
+                    <article class="news-card reveal">
+                        <div class="news-card__img"><i class="ri-rocket-line"></i></div>
+                        <div class="news-card__body">
+                            <p class="news-card__date">June 2026</p>
+                            <h3>Osiris Platform Launch</h3>
+                            <p>The full Osiris website is live — featuring integrated AI, a resource library, student hub, and peer education programs.</p>
+                            <span class="news-card__tag">Announcement</span>
+                        </div>
+                    </article>
+                    <article class="news-card reveal reveal--delay-1">
+                        <div class="news-card__img"><i class="ri-group-line"></i></div>
+                        <div class="news-card__body">
+                            <p class="news-card__date">May 2026</p>
+                            <h3>500 Students Mentored Milestone</h3>
+                            <p>Osiris peer education has now supported over 500 students through mentoring, workshops, and resource sharing.</p>
+                            <span class="news-card__tag">Impact</span>
+                        </div>
+                    </article>
+                    <article class="news-card reveal reveal--delay-2">
+                        <div class="news-card__img"><i class="ri-book-open-line"></i></div>
+                        <div class="news-card__body">
+                            <p class="news-card__date">April 2026</p>
+                            <h3>New MATLAB Resource Series</h3>
+                            <p>Osiris Agent has published a 5-part video series covering scripts, plots, functions, and Simulink basics.</p>
+                            <span class="news-card__tag">Resources</span>
+                        </div>
+                    </article>
+                    <article class="news-card reveal">
+                        <div class="news-card__img"><i class="ri-calendar-event-line"></i></div>
+                        <div class="news-card__body">
+                            <p class="news-card__date">March 2026</p>
+                            <h3>Exam Prep Bootcamp Recap</h3>
+                            <p>Over 80 students attended our pre-exam bootcamp. Past papers and solution guides are now available in Resources.</p>
+                            <span class="news-card__tag">Events</span>
+                        </div>
+                    </article>
+                    <article class="news-card reveal reveal--delay-1">
+                        <div class="news-card__img"><i class="ri-robot-2-line"></i></div>
+                        <div class="news-card__body">
+                            <p class="news-card__date">February 2026</p>
+                            <h3>Meet Osiris AI</h3>
+                            <p>Our integrated AI assistant is now available on every page. Ask about resources, programs, events, and career support.</p>
+                            <span class="news-card__tag">Technology</span>
+                        </div>
+                    </article>
+                    <article class="news-card reveal reveal--delay-2">
+                        <div class="news-card__img"><i class="ri-graduation-cap-line"></i></div>
+                        <div class="news-card__body">
+                            <p class="news-card__date">January 2026</p>
+                            <h3>Peer Mentor Training Complete</h3>
+                            <p>18 new peer educators completed facilitator training and are ready to support the <span data-current-year>2026</span> cohort.</p>
+                            <span class="news-card__tag">Peer Education</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--alt">
+            <div class="container">
+                <div class="newsletter-bar reveal">
+                    <div>
+                        <h3>Stay updated</h3>
+                        <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Subscribe to the Osiris newsletter for announcements and new resources.</p>
+                    </div>
+                    <a href="#" id="newsletterFormLink" class="btn btn--primary" target="_blank" rel="noopener"><i class="ri-mail-send-line"></i> Subscribe via Google Form</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer"><div class="container"><div class="footer__bottom" style="border:none;padding:0"><span>&copy; <span data-current-year>2026</span> Osiris</span></div></div></footer>
+    <script src="js/osiris-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

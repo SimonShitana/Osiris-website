@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources | Osiris</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <header class="header header--transparent" id="header">
+        <nav class="navbar container">
+            <a href="home.html" class="navbar__logo"><img src="assets/Osiris%20logo.png" alt="Osiris" class="logo-img"></a>
+            <div class="navbar__menu" id="navbarMenu">
+                <ul class="navbar__list" id="navbarList"></ul>
+            </div>
+            <button class="navbar__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+
+    <main id="resourceListContainer">
+        <section class="page-hero">
+            <div class="page-hero__bg"></div>
+            <div class="container">
+                <p class="section__eyebrow reveal">Resources</p>
+                <h1 class="reveal reveal--delay-1">View & <span class="gradient-text">download PDFs</span></h1>
+                <p class="reveal reveal--delay-2">Click View to open in the browser, or Download to save — study guides, e-books, toolkits, and past papers.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="glass-card reveal" style="display:flex;gap:1rem;align-items:center;margin-bottom:2rem">
+                    <i class="ri-folder-3-line" style="font-size:2rem;color:var(--orange)"></i>
+                    <div><strong>Module folders</strong><p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Browse university modules, then open each folder to view uploaded past papers and notes.</p></div>
+                </div>
+
+                <div id="resourceAdminPanel" class="admin-composer reveal" hidden data-admin-only>
+                    <h3><i class="ri-folder-add-line"></i> Add Folder Resource</h3>
+                    <form id="resourceUploadForm">
+                        <div class="form-group"><input type="text" id="resourceModule" placeholder="Module name" list="moduleNameList" required></div>
+                        <datalist id="moduleNameList"></datalist>
+                        <div class="form-group"><input type="text" id="resourceTitle" placeholder="Resource title / past paper year" required></div>
+                        <div class="form-group"><input type="text" id="resourceFolder" placeholder="Sub-folder inside the module (optional)"></div>
+                        <div class="form-group">
+                            <select id="resourceType">
+                                <option value="Past Paper">Past Paper</option>
+                                <option value="Memo">Memo</option>
+                                <option value="Notes">Notes</option>
+                                <option value="Guide">Guide</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label class="file-label"><i class="ri-upload-cloud-line"></i> Upload PDF or image<input type="file" id="resourceFile" accept="application/pdf,image/*" hidden></label></div>
+                        <button type="submit" class="btn btn--primary btn--block">Add to Folder</button>
+                        <p id="resourceUploadMsg" class="form-reply"></p>
+                    </form>
+                </div>
+
+                <div class="resource-tabs reveal">
+                    <button class="resource-tab resource-tab--active" data-tab="tab-modules">Modules</button>
+                    <button class="resource-tab" data-tab="tab-guides">Study Guides</button>
+                    <button class="resource-tab" data-tab="tab-ebooks">E-Books</button>
+                    <button class="resource-tab" data-tab="tab-toolkits">Toolkits</button>
+                    <button class="resource-tab" data-tab="tab-papers">Past Papers</button>
+                </div>
+
+                <div id="tab-modules" class="resource-panel resource-panel--active"></div>
+                <div id="tab-guides" class="resource-panel"></div>
+                <div id="tab-ebooks" class="resource-panel"></div>
+                <div id="tab-toolkits" class="resource-panel"></div>
+                <div id="tab-papers" class="resource-panel"></div>
+
+                <p class="reveal" style="text-align:center;margin-top:2rem;color:var(--text-secondary)">Need a resource? <a href="contact.html" style="color:var(--accent)">Email Simon</a> at osiris11978@gmail.com</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- PDF Viewer Modal -->
+    <div id="pdfModal" class="pdf-modal" hidden>
+        <div class="pdf-modal__box">
+            <div class="pdf-modal__header">
+                <h3 id="pdfModalTitle">PDF</h3>
+                <div class="pdf-modal__controls">
+                    <button type="button" id="pdfPrev" class="btn btn--ghost btn--sm"><i class="ri-arrow-left-line"></i></button>
+                    <span id="pdfPageInfo">Page 1</span>
+                    <button type="button" id="pdfNext" class="btn btn--ghost btn--sm"><i class="ri-arrow-right-line"></i></button>
+                    <button type="button" id="pdfFullscreen" class="btn btn--ghost btn--sm" title="Fullscreen"><i class="ri-fullscreen-line"></i></button>
+                    <button type="button" id="pdfOpenTab" class="btn btn--ghost btn--sm"><i class="ri-external-link-line"></i> Open</button>
+                    <button type="button" id="pdfDownloadBtn" class="btn btn--primary btn--sm"><i class="ri-download-line"></i> Download</button>
+                    <button type="button" id="pdfClose" class="btn btn--ghost btn--sm"><i class="ri-close-line"></i></button>
+                </div>
+            </div>
+            <div class="pdf-modal__body" id="pdfModalBody">
+                <canvas id="pdfCanvas"></canvas>
+                <iframe id="pdfIframe" class="pdf-modal__iframe" title="PDF viewer" hidden></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer"><div class="container"><div class="footer__bottom" style="border:none;padding:0"><span>&copy; <span data-current-year>2026</span> Osiris</span></div></div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="js/osiris-config.js"></script>
+    <script src="js/notify.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/resources-pdf.js"></script>
+</body>
+</html>

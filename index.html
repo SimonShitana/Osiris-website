@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osiris | Sign In</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages/auth.css">
+</head>
+<body class="landing-page">
+    <div class="landing-bg" id="landingBg" aria-hidden="true">
+        <div class="landing-bg__orb landing-bg__orb--1"></div>
+        <div class="landing-bg__orb landing-bg__orb--2"></div>
+    </div>
+
+    <div class="landing">
+        <div class="landing__hero">
+            <div class="landing__logo-wrap">
+                <img src="assets/Osiris%20logo.png" alt="Osiris" class="landing__logo">
+            </div>
+            <h1>Welcome to <span class="text-accent">Osiris</span></h1>
+            <p class="landing__tagline">Engineering resources, peer education, and admin writings — built for students who rise together.</p>
+            <ul class="landing__features">
+                <li><i class="ri-file-pdf-line"></i> View & download past papers</li>
+                <li><i class="ri-article-line"></i> Admin channel — essays & motivation</li>
+                <li><i class="ri-group-line"></i> Peer education & student hub</li>
+                <li><i class="ri-robot-2-line"></i> Integrated Osiris AI</li>
+            </ul>
+            <p class="landing__note">Sign in with your email or admin credentials to access the platform.</p>
+        </div>
+
+        <div class="landing__auth">
+            <div class="auth-card">
+                <div class="auth-tabs">
+                    <button type="button" class="auth-tab auth-tab--active" data-auth-tab="signin">Sign In</button>
+                    <button type="button" class="auth-tab" data-auth-tab="signup">Sign Up</button>
+                    <button type="button" class="auth-tab" data-auth-tab="admin">Admin</button>
+                </div>
+
+                <p class="auth-divider"><span>sign in with your account</span></p>
+
+                <form id="authForm">
+                    <div class="auth-panel auth-panel--active" data-auth-panel="signin">
+                        <h2>Student Sign In</h2>
+                        <p class="auth-sub">Existing email accounts — enter your credentials below.</p>
+                    </div>
+                    <div class="auth-panel" data-auth-panel="signup">
+                        <h2>Create Account</h2>
+                        <p class="auth-sub">Register with your email and password.</p>
+                        <div class="form-group"><input type="text" id="signupName" placeholder="Full name" autocomplete="name"></div>
+                    </div>
+                    <div class="auth-panel" data-auth-panel="admin">
+                        <h2>Admin Login</h2>
+                        <p class="auth-sub">Osiris administrators only</p>
+                        <div class="form-group"><input type="text" id="adminUser" placeholder="Username" autocomplete="username"></div>
+                        <div class="form-group"><input type="password" id="adminPass" placeholder="Password" autocomplete="current-password"></div>
+                    </div>
+
+                    <div class="auth-fields" id="studentAuthFields">
+                        <div class="form-group"><input type="email" id="authEmail" placeholder="Email address" autocomplete="email"></div>
+                        <div class="form-group"><input type="password" id="authPass" placeholder="Password (6+ characters)" autocomplete="current-password"></div>
+                    </div>
+
+                    <p id="authError" class="auth-error"></p>
+                    <button type="submit" class="btn btn--primary btn--block">Continue to Osiris</button>
+                </form>
+
+                <p class="auth-contact">Questions? <a href="mailto:osiris11978@gmail.com">osiris11978@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics-compat.js"></script>
+    <script src="js/osiris-config.js"></script>
+    <script src="js/notify.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-db.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/pages/auth.js"></script>
+</body>
+</html>
