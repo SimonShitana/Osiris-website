@@ -3,3 +3,35 @@
 .env.local
 firebase-debug.log
 .firebase/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Dependencies
+node_modules/
+
+# Build outputs
+/dist/
+/build/
+
+# --- Heavy user-generated/static content ---
+# Keep repo lightweight: ignore large binaries under resources/assets/images.
+# (These should be uploaded/deployed separately or via your admin uploader.)
+resources/
+assets/
+images/
+
+# If you prefer to keep small placeholder files only, use extension-level rules instead.
+# Common large/binary types (useful if you later re-enable resources/):
+# *.pdf
+# *.zip
+# *.mp3
+# *.mp4
+# *.mov
+# *.png
+# *.jpg
+# *.jpeg
+# *.gif
+
