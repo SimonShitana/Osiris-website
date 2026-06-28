@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Modulus</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages/home-extras.css">
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <header class="header header--transparent" id="header">
+        <nav class="navbar container">
+            <a href="home.html" class="navbar__logo"><img src="assets/modulus_logo_tr.png" alt="Modulus" class="logo-img"></a>
+            <div class="navbar__menu" id="navbarMenu">
+                <ul class="navbar__list" id="navbarList"></ul>
+            </div>
+            <button class="navbar__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+
+    <main class="home-main">
+
+        <section class="hero">
+            <div class="hero__bg"></div>
+            <div class="container hero__grid">
+                <div class="hero__content">
+                    <div class="hero__badge reveal"><span class="hero__badge-dot"></span> Modulus — Empower. Create. Share.</div>
+                    <h1 class="hero__title reveal reveal--delay-1">Engineering education,<br><span class="gradient-text">reimagined.</span></h1>
+                    <p class="hero__description reveal reveal--delay-2">Past resources, peer education, admin channel writings, and integrated AI — for students who refuse to learn alone.</p>
+                    <div class="hero__buttons reveal reveal--delay-3">
+                        <a href="resources.html" class="btn btn--primary">Explore Resources <i class="ri-arrow-right-line"></i></a>
+                        <a href="channel.html" class="btn btn--outline">Admin Channel</a>
+                    </div>
+                </div>
+                <div class="hero__visual reveal reveal--delay-2">
+                    <div class="hero__logo-ring">
+<img src="assets/modulus_logo_tr.png" alt="Modulus Logo" class="hero__logo-main">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="metrics">
+            <div class="container">
+                <div class="metrics__grid">
+                    <div class="reveal"><div class="metric__number" data-metric="studentsMentored" data-suffix="+">0</div><div class="metric__label">Students mentored this year</div></div>
+                    <div class="reveal reveal--delay-1"><div class="metric__number" data-metric="resourcesShared" data-suffix="+">0</div><div class="metric__label">Resources shared</div></div>
+                    <div class="reveal reveal--delay-2"><div class="metric__number" data-metric="workshopsHeld">0</div><div class="metric__label">Workshops delivered</div></div>
+                    <div class="reveal reveal--delay-3"><div class="metric__number" data-metric="clubsActive">0</div><div class="metric__label">Active student clubs</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section__header section__header--center reveal">
+                    <p class="section__eyebrow">Quick Access</p>
+                    <h2>Everything you need</h2>
+                </div>
+                <div class="card-grid">
+                    <a href="channel.html" class="glass-card reveal" data-tilt style="text-decoration:none;color:inherit">
+                        <div class="glass-card__icon"><i class="ri-article-line"></i></div>
+                        <h3>Admin Channel</h3>
+                        <p>Essays, reflections, and motivational writings — with reactions & comments.</p>
+                    </a>
+                    <a href="resources.html" class="glass-card reveal reveal--delay-1" data-tilt style="text-decoration:none;color:inherit">
+                        <div class="glass-card__icon"><i class="ri-file-pdf-line"></i></div>
+                        <h3>Resources</h3>
+                        <p>View and download PDFs — module folders, past papers, and study guides.</p>
+                    </a>
+                    <a href="projects.html" class="glass-card reveal reveal--delay-2" data-tilt style="text-decoration:none;color:inherit">
+                        <div class="glass-card__icon"><i class="ri-code-box-line"></i></div>
+                        <h3>Projects</h3>
+                        <p>Coding and engineering projects built by Simon — placeholders for upcoming work.</p>
+                    </a>
+                    <a href="chat.html" class="glass-card reveal reveal--delay-2" data-tilt style="text-decoration:none;color:inherit">
+                        <div class="glass-card__icon"><i class="ri-chat-3-line"></i></div>
+                        <h3>Student Chat</h3>
+                        <p>Open group chat — talk to your colleagues like WhatsApp.</p>
+                    </a>
+                    <a href="study-room.html" class="glass-card reveal reveal--delay-3" data-tilt style="text-decoration:none;color:inherit">
+                        <div class="glass-card__icon"><i class="ri-book-read-line"></i></div>
+                        <h3>Study Room</h3>
+                        <p>Music, tasks, motivation, resources, and PDF viewer in one place.</p>
+                    </a>
+                    <a href="students.html#assignment-help" class="glass-card reveal reveal--delay-3" data-tilt style="text-decoration:none;color:inherit" data-student-only>
+                        <div class="glass-card__icon"><i class="ri-question-answer-line"></i></div>
+                        <h3>Assignment Help</h3>
+                        <p>Stuck on coursework? Send your enquiry directly to Simon.</p>
+                    </a>
+                    <a href="students.html" class="glass-card reveal" data-tilt style="text-decoration:none;color:inherit">
+                        <div class="glass-card__icon"><i class="ri-group-line"></i></div>
+                        <h3>Student Hub</h3>
+                        <p>Peer education, forums, quizzes, and career support.</p>
+                    </a>
+                    <a href="contact.html" class="glass-card reveal reveal--delay-1" data-tilt style="text-decoration:none;color:inherit">
+                        <div class="glass-card__icon"><i class="ri-mail-line"></i></div>
+                        <h3>Contact Simon</h3>
+<p>simonshitana21@gmail.com — questions, tutoring, partnerships.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-strip">
+            <div class="container"><div id="rotatingQuote"></div></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom" style="border:none;padding:0">
+                <span>&copy; <span data-current-year>2026</span> Modulus · Personal project · <a href="mailto:simonshitana21@gmail.com">simonshitana21@gmail.com</a></span>
+            </div>
+        </div>
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-storage-compat.js"></script>
+    <script src="js/osiris-config.js"></script>
+    <script src="js/notify.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-db.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/pages/home.js"></script>
+
+    <script type="module" src="app.js"></script>
+
+</body>
+</html>
+
+

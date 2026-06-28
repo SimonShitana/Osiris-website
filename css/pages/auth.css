@@ -1,0 +1,266 @@
+/* Auth / landing page — black, blue, glassmorphism, animated logo */
+.landing-page {
+    min-height: 100vh;
+    background: #0a0e17;
+    color: #f0f4ff;
+    overflow: hidden;
+    position: relative;
+}
+
+.landing-page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+background:
+        radial-gradient(ellipse 60% 50% at 20% 20%, rgba(249, 115, 22, 0.25) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(251, 146, 60, 0.15) 0%, transparent 50%);
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+.landing-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.landing-bg__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+    animation: orb-float 12s ease-in-out infinite;
+}
+
+.landing-bg__orb--1 {
+    width: 320px; height: 320px;
+background: var(--orange);
+    top: 10%; left: -5%;
+
+}
+
+.landing-bg__orb--2 {
+    width: 240px; height: 240px;
+background: var(--accent-bright);
+    bottom: 15%; right: 5%;
+
+    animation-delay: -4s;
+}
+
+.landing-bg__particle {
+    position: absolute;
+    width: 4px; height: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: particle-rise 8s linear infinite;
+}
+
+.landing {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.landing__logo-wrap {
+    perspective: 800px;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.landing__logo {
+    width: 120px;
+    animation: logo-flip 4s ease-in-out infinite, logo-glow 3s ease-in-out infinite alternate;
+    transform-style: preserve-3d;
+}
+
+@keyframes logo-flip {
+    0%, 100% { transform: rotateY(0deg) scale(1); }
+    25% { transform: rotateY(180deg) scale(1.05); }
+    50% { transform: rotateY(360deg) scale(1); }
+    75% { transform: rotateY(180deg) scale(1.05); }
+}
+
+@keyframes logo-glow {
+    from { filter: drop-shadow(0 0 12px var(--orange-glow)); }
+    to { filter: drop-shadow(0 0 28px var(--accent-glow)); }
+}
+
+
+@keyframes orb-float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -20px); }
+}
+
+@keyframes particle-rise {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+}
+
+.landing__hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: slide-in 0.8s ease-out;
+}
+
+.landing__hero h1 .text-accent { color: var(--accent-bright); }
+
+
+.landing__tagline {
+    color: rgba(240, 244, 255, 0.75);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    animation: slide-in 0.8s ease-out 0.1s both;
+}
+
+.landing__features {
+    list-style: none;
+    margin-bottom: 1.5rem;
+    animation: slide-in 0.8s ease-out 0.2s both;
+}
+
+.landing__features li {
+    padding: 0.5rem 0;
+    color: rgba(240, 244, 255, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.landing__features i { color: var(--accent-bright); }
+
+
+.landing__note {
+    font-size: 0.9rem;
+    color: rgba(240, 244, 255, 0.5);
+    animation: slide-in 0.8s ease-out 0.3s both;
+}
+
+@keyframes slide-in {
+    from { opacity: 0; transform: translateX(-24px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+    animation: auth-pop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+@keyframes auth-pop {
+    from { opacity: 0; transform: translateY(30px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.35rem;
+    border-radius: 12px;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 0.6rem;
+    border: none;
+    background: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: rgba(240, 244, 255, 0.6);
+    transition: all 0.3s;
+}
+
+.auth-tab--active {
+    background: var(--accent-dim);
+    color: #fff;
+    box-shadow: 0 4px 16px var(--accent-dim);
+}
+
+
+.auth-panel h2 { font-size: 1.35rem; margin-bottom: 0.25rem; color: #fff; }
+.auth-sub { color: rgba(240, 244, 255, 0.65); font-size: 0.9rem; margin-bottom: 1rem; }
+
+.landing-page .form-group input {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.landing-page .form-group input::placeholder { color: rgba(255, 255, 255, 0.4); }
+.landing-page .form-group input:focus { border-color: var(--accent-bright); }
+
+
+.landing-page .btn--primary {
+    background: linear-gradient(135deg, var(--accent), var(--orange-dark));
+    color: #fff;
+}
+
+.landing-page .btn--primary:hover {
+    background: linear-gradient(135deg, var(--accent-bright), var(--accent));
+    box-shadow: 0 8px 32px var(--orange-glow);
+}
+
+
+.auth-contact { text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: rgba(240, 244, 255, 0.5); }
+.auth-contact a { color: var(--accent-bright); }
+
+
+.btn--google {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: #fff;
+    color: #1f2937;
+    border: 1px solid rgba(255,255,255,0.2);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+.btn--google:hover { background: #f3f4f6; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.btn--google i { color: #ea4335; font-size: 1.2rem; }
+
+.auth-divider {
+    text-align: center;
+    color: rgba(240,244,255,0.45);
+    font-size: 0.8rem;
+    margin: 0.5rem 0 1rem;
+}
+.auth-divider span {
+    display: inline-block;
+    padding: 0 0.75rem;
+    position: relative;
+}
+.auth-divider span::before,
+.auth-divider span::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+}
+.auth-divider span::before { right: 100%; }
+.auth-divider span::after { left: 100%; }
+
+@media (max-width: 768px) {
+    .landing { grid-template-columns: 1fr; }
+}

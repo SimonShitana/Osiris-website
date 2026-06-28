@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Osiris</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <header class="header header--transparent" id="header">
+        <nav class="navbar container">
+<a href="home.html" class="navbar__logo"><img src="assets/modulus_logo_tr.png" alt="Modulus" class="logo-img"></a>
+            <div class="navbar__menu" id="navbarMenu">
+                <ul class="navbar__list" id="navbarList"></ul>
+            </div>
+            <button class="navbar__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="page-hero__bg"></div>
+            <div class="container">
+                <p class="section__eyebrow reveal">Events</p>
+                <h1 class="reveal reveal--delay-1">Seminars. Training. <span class="gradient-text">Activities.</span></h1>
+                <p class="reveal reveal--delay-2">Upcoming workshops, talks, social events, and career sessions — updated throughout the year.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section__header reveal">
+                    <p class="section__eyebrow">Calendar</p>
+                    <h2>Upcoming events</h2>
+                </div>
+                <div class="events-grid" id="eventsCalendar"></div>
+            </div>
+        </section>
+
+        <section class="section section--alt">
+            <div class="container">
+                <div class="section__header section__header--center reveal">
+                    <p class="section__eyebrow">Event Types</p>
+                    <h2>What to expect</h2>
+                </div>
+                <div class="card-grid">
+                    <div class="glass-card reveal"><div class="glass-card__icon"><i class="ri-presentation-line"></i></div><h3>Workshops</h3><p>Hands-on MATLAB, CAD, and study skills sessions with peer educators.</p></div>
+                    <div class="glass-card reveal reveal--delay-1"><div class="glass-card__icon"><i class="ri-mic-line"></i></div><h3>Seminars & Talks</h3><p>Guest speakers, alumni panels, and industry professionals share insights.</p></div>
+                    <div class="glass-card reveal reveal--delay-2"><div class="glass-card__icon"><i class="ri-cup-line"></i></div><h3>Social Activities</h3><p>Study breaks, team-building, and community nights to stay connected.</p></div>
+                    <div class="glass-card reveal reveal--delay-3"><div class="glass-card__icon"><i class="ri-briefcase-line"></i></div><h3>Career Sessions</h3><p>CV clinics, internship fairs, and job board introductions.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="cta-banner reveal">
+                    <div><h2>Want to host an event?</h2><p style="color:var(--text-secondary);margin-top:0.5rem">Partner with Osiris or volunteer to facilitate a session.</p></div>
+                    <a href="contact.html" class="btn btn--primary">Get in Touch</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer"><div class="container"><div class="footer__bottom" style="border:none;padding:0"><span>&copy; <span data-current-year>2026</span> Osiris</span></div></div></footer>
+    <script src="js/osiris-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Channel | Osiris</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <header class="header header--transparent" id="header">
+        <nav class="navbar container">
+            <a href="home.html" class="navbar__logo"><img src="assets/modulus_logo_tr.png" alt="Modulus" class="logo-img"></a>
+            <div class="navbar__menu" id="navbarMenu">
+                <ul class="navbar__list" id="navbarList"></ul>
+            </div>
+            <button class="navbar__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="channel-banner">
+            <div class="container">
+                <p class="section__eyebrow">Broadcast Channel</p>
+                <h1>Osiris <span class="text-accent">Channel</span></h1>
+                <p>Admin broadcasts, articles, polls, and project updates. Followers react privately without public replies.</p>
+                <div class="channel-quote" id="channelQuote"></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container channel-layout">
+                <aside class="channel-sidebar reveal">
+                    <div id="adminComposer" class="admin-composer" hidden data-admin-only>
+                        <h3><i class="ri-broadcast-line"></i> New Broadcast</h3>
+                        <form id="adminPostForm">
+                            <div class="form-group"><input type="text" id="postTitle" placeholder="Broadcast title" required></div>
+                            <div class="form-group">
+                                <select id="postType" required>
+                                    <option value="message">Message</option>
+                                    <option value="article">Article</option>
+                                    <option value="poll">Poll</option>
+                                    <option value="project">Project Update</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select id="postCategory" required>
+                                    <option value="leadership">Leadership</option>
+                                    <option value="wellness">Wellness</option>
+                                    <option value="engineering">Engineering</option>
+                                    <option value="motivation">Motivation</option>
+                                    <option value="resources">Resources</option>
+                                    <option value="projects">Projects</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><textarea id="postBody" rows="5" placeholder="Write the broadcast..." required></textarea></div>
+                            <div class="form-group" id="pollOptionsWrap" hidden>
+                                <input type="text" id="pollOptions" placeholder="Poll options separated by commas">
+                            </div>
+                            <div class="form-group"><label class="file-label"><i class="ri-image-add-line"></i> Attach image<input type="file" id="postImage" accept="image/*" hidden></label></div>
+                            <label class="checkbox-label"><input type="checkbox" id="postPinned"> Pin this post</label>
+                            <button type="submit" class="btn btn--primary btn--block">Publish Broadcast</button>
+                            <p id="composerSuccess" class="form-reply"></p>
+                        </form>
+                    </div>
+
+                    <div class="channel-directory">
+                        <h4>Directory</h4>
+                        <div class="form-group"><input type="search" id="directorySearch" placeholder="Find channels..."></div>
+                        <div class="form-group">
+                            <select id="directoryCategory">
+                                <option value="all">All categories</option>
+                                <option value="education">Education</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="resources">Resources</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="directoryCountry">
+                                <option value="all">All countries</option>
+                                <option value="Namibia">Namibia</option>
+                                <option value="Global">Global</option>
+                            </select>
+                        </div>
+                        <div id="directoryList"></div>
+                    </div>
+
+                    <div class="channel-filters">
+                        <h4>Filter & Search</h4>
+                        <div class="form-group"><input type="search" id="channelSearch" placeholder="Search keywords…"></div>
+                        <div class="form-group">
+                            <select id="channelFilter">
+                                <option value="all">All categories</option>
+                                <option value="leadership">Leadership</option>
+                                <option value="wellness">Wellness</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="motivation">Motivation</option>
+                                <option value="resources">Resources</option>
+                                <option value="projects">Projects</option>
+                            </select>
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="channel-main">
+                    <p id="channelEmpty" class="channel-empty" hidden>No posts match your search.</p>
+                    <div id="channelFeed" class="channel-feed"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer"><div class="container"><div class="footer__bottom" style="border:none;padding:0"><span>&copy; <span data-current-year>2026</span> Osiris Channel</span></div></div></footer>
+    <script src="js/osiris-config.js"></script>
+    <script src="js/notify.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/channel.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

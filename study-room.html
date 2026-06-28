@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Study Room | Osiris</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/pages/study-room.css">
+
+</head>
+
+<body>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <header class="header header--transparent" id="header">
+
+        <nav class="navbar container">
+
+<a href="home.html" class="navbar__logo"><img src="assets/modulus_logo_tr.png" alt="Modulus" class="logo-img"></a>
+
+            <div class="navbar__menu" id="navbarMenu">
+
+                <ul class="navbar__list" id="navbarList"></ul>
+
+            </div>
+
+            <button class="navbar__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+
+        </nav>
+
+    </header>
+
+
+
+    <main>
+
+        <section class="page-hero page-hero--compact">
+
+            <div class="page-hero__bg"></div>
+
+            <div class="container">
+
+                <p class="section__eyebrow reveal">Focus</p>
+
+                <h1 class="reveal reveal--delay-1">Study <span class="gradient-text">Room</span></h1>
+
+                <p class="reveal reveal--delay-2">Resources, music, tasks, motivation, and PDF viewer — your personal study space.</p>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="section study-room-section">
+
+            <div class="container">
+
+                <div class="study-tabs reveal">
+
+                    <button class="study-tab study-tab--active" data-study-tab="resources"><i class="ri-folder-3-line"></i> Resources</button>
+
+                    <button class="study-tab" data-study-tab="music"><i class="ri-music-2-line"></i> Music</button>
+
+                    <button class="study-tab" data-study-tab="tasks"><i class="ri-checkbox-line"></i> Tasks</button>
+
+                    <button class="study-tab" data-study-tab="motivation"><i class="ri-fire-line"></i> Motivation</button>
+
+                    <button class="study-tab" data-study-tab="pdf"><i class="ri-file-pdf-line"></i> PDF Viewer</button>
+
+                </div>
+
+
+
+                <div class="study-panel study-panel--active" id="study-resources">
+
+                    <div class="module-search"><input type="search" id="studyModuleSearch" placeholder="Search modules…"></div>
+
+                    <div class="module-grid" id="studyModuleGrid"></div>
+
+                </div>
+
+
+
+                <div class="study-panel" id="study-music">
+
+                    <div class="music-player reveal" id="musicPlayer">
+
+                        <div class="music-player__now">
+
+                            <i class="ri-disc-line"></i>
+
+                            <div><strong id="nowPlayingTitle">Select a track</strong><span id="nowPlayingArtist">—</span></div>
+
+                        </div>
+
+                        <audio id="studyAudio" controls></audio>
+
+                        <div class="music-player__actions">
+                            <button type="button" class="btn btn--outline btn--sm" id="musicOpenModal"><i class="ri-fullscreen-line"></i> Open player</button>
+                            <span class="music-helper">Tap any song to open the full modal with pause, next, repeat, and shuffle controls.</span>
+                        </div>
+
+                        <ul class="music-list" id="musicList"></ul>
+
+                    </div>
+
+                    <div id="musicModal" class="music-modal" hidden>
+                        <div class="music-modal__card">
+                            <button type="button" id="musicModalClose" class="music-modal__close" aria-label="Close"><i class="ri-close-line"></i></button>
+                            <div class="music-modal__badge">Archive Keeper</div>
+                            <h3 id="musicModalTitle">Select a track</h3>
+                            <p id="musicModalArtist">Your audio archive, saved by name.</p>
+                            <div class="music-modal__controls">
+                                <button type="button" id="musicPrev" class="btn btn--ghost btn--sm"><i class="ri-skip-back-line"></i> Prev</button>
+                                <button type="button" id="musicPlayPause" class="btn btn--primary btn--sm"><i class="ri-play-fill"></i> Play</button>
+                                <button type="button" id="musicNext" class="btn btn--ghost btn--sm"><i class="ri-skip-forward-line"></i> Next</button>
+                            </div>
+                            <div class="music-modal__chips">
+                                <button type="button" id="musicShuffle" class="chip-btn" aria-pressed="false"><i class="ri-shuffle-line"></i> Shuffle</button>
+                                <button type="button" id="musicRepeat" class="chip-btn" aria-pressed="false"><i class="ri-repeat-line"></i> Repeat</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-composer reveal" id="musicAdminPanel" hidden data-admin-only>
+
+                        <h3><i class="ri-add-line"></i> Add Music Track</h3>
+
+                        <form id="musicUploadForm">
+
+                            <div class="form-group"><input type="text" id="musicTitle" placeholder="Track title" required></div>
+
+                            <div class="form-group"><input type="text" id="musicArtist" placeholder="Artist"></div>
+
+                            <div class="form-group"><label class="file-label"><i class="ri-upload-cloud-line"></i> Upload MP3<input type="file" id="musicFile" accept="audio/*" hidden></label></div>
+
+                            <button type="submit" class="btn btn--primary btn--sm">Add Track</button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="study-panel" id="study-tasks">
+
+                    <div class="tasks-panel reveal">
+
+                        <form id="taskForm" class="task-form">
+
+                            <input type="text" id="taskInput" placeholder="Add a study task…" required>
+
+                            <button type="submit" class="btn btn--primary btn--sm"><i class="ri-add-line"></i></button>
+
+                        </form>
+
+                        <ul class="task-list" id="taskList"></ul>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="study-panel" id="study-motivation">
+
+                    <div class="glass-card reveal" style="margin-bottom:1rem;">
+                        <h3 style="margin-bottom:0.5rem"><i class="ri-ghost-line"></i> Archive Keeper</h3>
+                        <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.6">You are the digital shadow of a creator still carrying engineering pressure, the weight of leadership, and the quiet urge to disappear. This page stores the resources, the music, and the traces left behind so others can survive the same system.</p>
+                    </div>
+
+                    <div class="motivation-card reveal" id="motivationQuote"></div>
+
+                    <button type="button" class="btn btn--outline btn--sm" id="newQuoteBtn"><i class="ri-refresh-line"></i> New quote</button>
+
+                </div>
+
+
+
+                <div class="study-panel" id="study-pdf">
+
+                    <div class="pdf-picker reveal">
+
+                        <p style="color:var(--text-secondary);margin-bottom:1rem">Open any resource PDF or upload your own file to view here.</p>
+
+                        <label class="btn btn--outline btn--sm"><i class="ri-upload-2-line"></i> Upload PDF<input type="file" id="studyPdfUpload" accept="application/pdf" hidden></label>
+
+                        <select id="studyPdfSelect" class="study-select"><option value="">— Or pick from resources —</option></select>
+
+                        <button type="button" class="btn btn--primary btn--sm" id="studyPdfOpen"><i class="ri-eye-line"></i> Open PDF</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <div id="pdfModal" class="pdf-modal" hidden>
+
+        <div class="pdf-modal__box">
+
+            <div class="pdf-modal__header">
+
+                <h3 id="pdfModalTitle">PDF</h3>
+
+                <div class="pdf-modal__controls">
+
+                    <button type="button" id="pdfFullscreen" class="btn btn--ghost btn--sm" title="Fullscreen"><i class="ri-fullscreen-line"></i></button>
+
+                    <button type="button" id="pdfPrev" class="btn btn--ghost btn--sm"><i class="ri-arrow-left-line"></i></button>
+
+                    <span id="pdfPageInfo">Page 1</span>
+
+                    <button type="button" id="pdfNext" class="btn btn--ghost btn--sm"><i class="ri-arrow-right-line"></i></button>
+
+                    <button type="button" id="pdfOpenTab" class="btn btn--ghost btn--sm"><i class="ri-external-link-line"></i> Open</button>
+
+                    <button type="button" id="pdfDownloadBtn" class="btn btn--primary btn--sm"><i class="ri-download-line"></i> Download</button>
+
+                    <button type="button" id="pdfClose" class="btn btn--ghost btn--sm"><i class="ri-close-line"></i></button>
+
+                </div>
+
+            </div>
+
+            <div class="pdf-modal__body" id="pdfModalBody">
+
+                <canvas id="pdfCanvas"></canvas>
+
+                <iframe id="pdfIframe" class="pdf-modal__iframe" title="PDF viewer" hidden></iframe>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <footer class="footer"><div class="container"><div class="footer__bottom" style="border:none;padding:0"><span>&copy; <span data-current-year>2026</span> Osiris</span></div></div></footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-storage-compat.js"></script>
+
+    <script src="js/osiris-config.js"></script>
+
+    <script src="js/notify.js"></script>
+
+    <script src="js/notifications.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+
+    <script src="js/firebase-db.js"></script>
+
+    <script src="js/auth.js"></script>
+
+    <script src="js/nav.js"></script>
+
+    <script src="js/script.js"></script>
+
+    <script src="js/resources-pdf.js"></script>
+
+    <script src="js/pages/study-room.js?v=20260607"></script>
+
+</body>
+
+</html>
+
+

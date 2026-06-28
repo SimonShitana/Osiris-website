@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Chat | Osiris</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/pages/chat.css">
+
+</head>
+
+<body>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <header class="header header--transparent" id="header">
+
+        <nav class="navbar container">
+
+<a href="home.html" class="navbar__logo"><img src="assets/modulus_logo_tr.png" alt="Modulus" class="logo-img"></a>
+
+            <div class="navbar__menu" id="navbarMenu">
+
+                <ul class="navbar__list" id="navbarList"></ul>
+
+            </div>
+
+            <button class="navbar__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+
+        </nav>
+
+    </header>
+
+
+
+    <main class="chat-page">
+
+        <section class="page-hero page-hero--compact">
+
+            <div class="page-hero__bg"></div>
+
+            <div class="container">
+
+                <p class="section__eyebrow reveal">Community</p>
+
+                <h1 class="reveal reveal--delay-1">Student <span class="gradient-text">Chat</span></h1>
+
+                <p class="reveal reveal--delay-2">Open area for all students — share ideas, ask questions, and stay connected.</p>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="section chat-section">
+
+            <div class="container">
+
+                <div class="chat-layout reveal">
+
+                    <div class="chat-messages" id="chatMessages">
+
+                        <p class="chat-loading">Loading messages…</p>
+
+                    </div>
+
+                    <form class="chat-compose" id="chatForm">
+
+                        <input type="text" id="chatInput" placeholder="Type a message…" autocomplete="off" maxlength="2000" required>
+
+                        <button type="submit" class="btn btn--primary"><i class="ri-send-plane-fill"></i></button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <footer class="footer"><div class="container"><div class="footer__bottom" style="border:none;padding:0"><span>&copy; <span data-current-year>2026</span> Osiris</span></div></div></footer>
+
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-storage-compat.js"></script>
+
+    <script src="js/osiris-config.js"></script>
+
+    <script src="js/notify.js"></script>
+
+    <script src="js/notifications.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+
+    <script src="js/firebase-db.js"></script>
+
+    <script src="js/auth.js"></script>
+
+    <script src="js/nav.js"></script>
+
+    <script src="js/script.js"></script>
+
+    <script src="js/pages/chat.js"></script>
+
+</body>
+
+</html>
+
+

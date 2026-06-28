@@ -1,0 +1,292 @@
+.study-room-section { padding-top: 0; }
+
+.study-tabs {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 0.5rem;
+
+    margin-bottom: 1.5rem;
+
+}
+
+.study-tab {
+
+    padding: 0.65rem 1.1rem;
+
+    border-radius: 100px;
+
+    border: 1px solid var(--glass-border);
+
+    background: var(--bg-card);
+
+    color: var(--text-secondary);
+
+    cursor: pointer;
+
+    font: inherit;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 0.4rem;
+
+    transition: all 0.25s;
+
+}
+
+.study-tab--active, .study-tab:hover {
+
+    background: var(--accent-dim);
+
+    color: var(--accent);
+
+    border-color: rgba(37, 99, 235, 0.35);
+
+}
+
+.study-panel { display: none; animation: fadeIn 0.35s ease; }
+
+.study-panel--active { display: block; }
+
+.music-player {
+
+    background: var(--glass-strong);
+
+    border: 1px solid var(--glass-border);
+
+    border-radius: var(--radius-lg);
+
+    padding: 1.5rem;
+
+    margin-bottom: 1.5rem;
+
+}
+
+.music-player__now {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+
+}
+
+.music-player__now i { font-size: 2.5rem; color: var(--accent); }
+
+.music-player__now span { display: block; color: var(--text-muted); font-size: 0.85rem; }
+
+.music-player audio { width: 100%; margin-bottom: 1rem; }
+
+.music-player__actions { display:flex; flex-wrap:wrap; align-items:center; gap:0.75rem; margin-bottom:1rem; }
+.music-helper { color:var(--text-muted); font-size:0.9rem; }
+
+.music-list { list-style: none; display: grid; gap: 0.5rem; }
+
+.music-list li {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 0.75rem;
+
+    padding: 0.75rem 1rem;
+
+    border-radius: 10px;
+
+    background: var(--bg-card);
+
+    border: 1px solid var(--glass-border);
+
+    cursor: pointer;
+
+    transition: background 0.2s;
+
+}
+
+.music-list li:hover, .music-list li.music-list__active { background: var(--accent-dim); }
+
+.music-list__label {
+    display: grid;
+    gap: 0.15rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.music-list__title {
+    font-size: 0.98rem;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.music-list__meta {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    overflow-wrap: anywhere;
+}
+
+.music-list__delete {
+    flex-shrink: 0;
+}
+
+.music-modal { position: fixed; inset: 0; background: rgba(3, 7, 18, 0.78); display:flex; align-items:center; justify-content:center; z-index: 1000; padding: 1rem; }
+.music-modal[hidden] { display: none; }
+.music-modal__card { position: relative; width: min(100%, 460px); background: linear-gradient(160deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.98)); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: var(--shadow-glow); }
+.music-modal__badge { color: var(--accent); text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.72rem; margin-bottom: 0.35rem; }
+.music-modal__card h3 { font-size: 1.25rem; margin-bottom: 0.2rem; }
+.music-modal__card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+.music-modal__close { position:absolute; top:0.75rem; right:0.75rem; border:none; background:transparent; color:var(--text); font-size:1.1rem; cursor:pointer; }
+.music-modal__controls, .music-modal__chips { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem; }
+.chip-btn { border:1px solid var(--glass-border); background: var(--bg-card); color: var(--text); border-radius:999px; padding:0.45rem 0.75rem; cursor:pointer; display:inline-flex; align-items:center; gap:0.35rem; font: inherit; }
+.chip-btn.music-btn--active, .chip-btn:hover { background: var(--accent-dim); color: var(--accent); border-color: rgba(96,165,250,0.45); }
+
+.tasks-panel {
+
+    background: var(--glass-strong);
+
+    border: 1px solid var(--glass-border);
+
+    border-radius: var(--radius-lg);
+
+    padding: 1.5rem;
+
+}
+
+.task-form { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
+
+.task-form input {
+
+    flex: 1;
+
+    padding: 0.85rem 1rem;
+
+    border-radius: 10px;
+
+    border: 1px solid var(--glass-border);
+
+    background: var(--bg-card);
+
+    color: var(--text);
+
+    font: inherit;
+
+}
+
+.task-list { list-style: none; }
+
+.task-list li {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+    padding: 0.75rem 0;
+
+    border-bottom: 1px solid var(--glass-border);
+
+}
+
+.task-list li.done span { text-decoration: line-through; opacity: 0.55; }
+
+.task-list button {
+
+    margin-left: auto;
+
+    border: none;
+
+    background: none;
+
+    color: var(--text-muted);
+
+    cursor: pointer;
+
+}
+
+.motivation-card {
+
+    background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(10,14,23,0.9));
+
+    border: 1px solid var(--glass-border);
+
+    border-radius: var(--radius-lg);
+
+    padding: 2.5rem 2rem;
+
+    text-align: center;
+
+    margin-bottom: 1rem;
+
+}
+
+.motivation-card blockquote { font-size: 1.35rem; font-style: italic; margin-bottom: 0.75rem; line-height: 1.5; }
+
+.motivation-card cite { color: var(--accent); font-style: normal; font-weight: 600; }
+
+.pdf-picker { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+
+.study-select {
+
+    padding: 0.65rem 1rem;
+
+    border-radius: 10px;
+
+    border: 1px solid var(--glass-border);
+
+    background: var(--bg-card);
+
+    color: var(--text);
+
+    font: inherit;
+
+    min-width: 220px;
+
+}
+
+@media (max-width: 768px) {
+    .study-tabs {
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .study-select {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    .music-player {
+        padding: 1.25rem;
+    }
+
+    .tasks-panel {
+        padding: 1.25rem;
+    }
+
+    .task-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .task-form button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .pdf-picker {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+
+
