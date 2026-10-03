@@ -1,0 +1,90 @@
+/* Shared phone and small-tablet layout adjustments. Loaded after page styles. */
+@media (max-width: 768px) {
+    html { -webkit-text-size-adjust: 100%; }
+    .container { width: 100%; padding-left: 1rem; padding-right: 1rem; }
+
+    .header { padding: 0.5rem 0; }
+    .navbar { flex-wrap: nowrap; }
+    .logo-img, .header--scrolled .logo-img { height: 52px; max-width: min(45vw, 180px); object-fit: contain; }
+    .navbar__menu { width: min(84vw, 340px); height: 100dvh; overflow-y: auto; overscroll-behavior: contain; }
+    .navbar__list { align-items: stretch; }
+    .navbar__list li { width: 100%; }
+    .navbar__link { display: flex; align-items: center; min-height: 44px; white-space: normal; }
+
+    .hero { min-height: 0; padding: 7rem 0 3rem; }
+    .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+    .hero__badge { margin-top: 0; }
+    .hero__title { font-size: clamp(2.2rem, 10vw, 3.25rem); }
+    .hero__description { font-size: 1rem; }
+    .hero__buttons { align-items: stretch; }
+    .hero__buttons .btn { justify-content: center; }
+    .hero__scroll { display: none; }
+    .hero__logo-ring { width: min(58vw, 220px); height: min(58vw, 220px); }
+    .hero__logo-main { width: 62%; height: 62%; }
+
+    .section { padding: 3.5rem 0; }
+    .section__header { margin-bottom: 2rem; }
+    .mission-block, .contact-grid, .channel-layout, .profile-layout,
+    .interactive-grid, .join-grid, .career-grid, .media-grid { grid-template-columns: minmax(0, 1fr); }
+    .card-grid, .team-grid, .events-grid, .news-grid, .stories-grid,
+    .projects-grid, .clubs-grid, .values-grid, .metrics__grid { grid-template-columns: minmax(0, 1fr); }
+    .mission-block { gap: 2rem; }
+    .mission-block__text h2 { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+    .glass-card, .project-card, .profile-section { padding: 1.25rem; }
+    .page-hero { padding: 7rem 0 2.5rem; }
+    .page-hero h1, .channel-banner h1 { font-size: clamp(2rem, 9vw, 2.65rem); }
+    .channel-banner { padding: 7.5rem 0 2.5rem; }
+    .channel-sidebar, .profile-sidebar { position: static; }
+    .channel-post__bubble { padding: 1rem; }
+
+    .landing { min-height: 100svh; grid-template-columns: minmax(0, 1fr) !important; gap: 1.5rem; padding: 1.25rem 1rem; }
+    .landing__hero { text-align: center; }
+    .landing__logo { width: 88px; margin-bottom: 0.75rem; }
+    .landing__features { text-align: left; display: inline-block; }
+    .landing__tagline { font-size: 1rem; }
+    .auth-card { padding: 1.25rem; border-radius: 18px; }
+    .auth-tabs { gap: 0.1rem; }
+    .auth-tab { padding: 0.65rem 0.35rem; font-size: 0.78rem; }
+
+    .welcome-panel, .welcome-panel--top { margin: 0; padding: 6rem 0 1rem; }
+    .welcome-panel { padding-left: 1rem; padding-right: 1rem; }
+    .welcome-panel__inner { padding: 1.25rem; }
+    .welcome-panel__actions { width: 100%; }
+    .welcome-panel__actions .btn { flex: 1 1 auto; justify-content: center; }
+    .footer__grid { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+    .footer__bottom { align-items: flex-start; flex-direction: column; gap: 0.75rem; }
+    .cta-banner { gap: 1rem; padding: 1.5rem; }
+    .quote-strip { margin-left: 1rem; margin-right: 1rem; padding: 1.5rem 1rem; }
+
+    .chat-layout { height: min(72svh, 680px); min-height: 360px; }
+    .chat-compose, .channel-comment-form { flex-wrap: wrap; }
+    .chat-compose input, .channel-comment-form input { min-width: 0; }
+    .chat-compose button, .channel-comment-form button { min-height: 44px; }
+    .task-form { flex-direction: column; align-items: stretch; }
+    .task-form button { width: 100%; justify-content: center; }
+    .study-select { min-width: 0; width: 100%; }
+    .music-list li, .module-file { align-items: flex-start; flex-wrap: wrap; }
+
+    .admin-student-table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+    .pdf-modal { padding: 0.5rem; }
+    .pdf-modal__box { max-height: 96svh; }
+    .pdf-modal__header { align-items: flex-start; }
+    .pdf-modal__iframe { min-height: 65svh; }
+    .ai-widget { right: 0.75rem; bottom: 0.75rem; width: min(380px, calc(100vw - 1.5rem)); }
+
+    img, video, iframe { max-width: 100%; }
+    input, select, textarea { max-width: 100%; font-size: 16px; }
+    .btn { min-height: 44px; }
+}
+
+@media (max-width: 420px) {
+    .container { padding-left: 0.85rem; padding-right: 0.85rem; }
+    .section { padding: 3rem 0; }
+    .hero__buttons { flex-direction: column; }
+    .hero__buttons .btn { width: 100%; }
+    .auth-card { padding: 1rem; }
+    .channel-post__header { align-items: flex-start; flex-wrap: wrap; }
+    .channel-post__type { margin-left: 0; }
+    .channel-post__actions .btn, .channel-post__actions button { flex: 1 1 auto; }
+    .activity-list li { flex-direction: column; gap: 0.25rem; }
+}
