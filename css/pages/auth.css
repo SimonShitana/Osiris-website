@@ -3,7 +3,7 @@
     min-height: 100vh;
     background: #0a0e17;
     color: #f0f4ff;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 
