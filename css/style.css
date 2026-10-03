@@ -574,8 +574,9 @@ border: 1px dashed var(--orange-glow);
     border-radius: var(--radius-lg); padding: 2rem;
 }
 .contact-item { display: flex; gap: 1rem; margin: 1.25rem 0; align-items: flex-start; }
+.contact-item > div { min-width: 0; }
 .contact-item i { font-size: 1.25rem; color: var(--accent); margin-top: 0.15rem; }
-.contact-item a { color: var(--text); text-decoration: none; transition: color 0.3s; }
+.contact-item a { color: var(--text); text-decoration: none; overflow-wrap: anywhere; transition: color 0.3s; }
 .contact-item a:hover { color: var(--accent); }
 .form-group { margin-bottom: 1rem; }
 .form-group input, .form-group textarea, .form-group select {

@@ -6,9 +6,9 @@ const OSIRIS_PLACEHOLDER_AVATAR = 'data:image/svg+xml,' + encodeURIComponent(
 );
 
 const OSIRIS_CONFIG = {
-    siteName: 'Modulus',
+    siteName: 'Osiris',
     assets: {
-        logo: 'assets/modulus_logo_tr.png',
+        logo: 'assets/Osiris%20logo.png',
         defaultAvatar: OSIRIS_PLACEHOLDER_AVATAR,
         channelAvatar: OSIRIS_PLACEHOLDER_AVATAR,
         heroImage: 'resources/files/mechanical-engineering.jpg',
@@ -34,7 +34,7 @@ const OSIRIS_CONFIG = {
         undergradYears: 5,
         referenceYear: 2026,
         referenceYearOfStudy: 3,
-        intro: 'Simon Shitana is the founder and sole administrator of Modulus — a mechanical engineering student, developer, and educator building a platform where students share resources, support each other, and grow together.'
+        intro: 'Simon Shitana is the founder and sole administrator of Osiris — a mechanical engineering student, developer, and educator building a platform where students share resources, support each other, and grow together.'
     },
 
     channelCategories: ['leadership', 'wellness', 'engineering', 'motivation'],
@@ -176,7 +176,7 @@ const OSIRIS_CONFIG = {
     },
 
     /** Static music tracks — place files in resources/music/ */
-    musicTracks: [{ id: 'music-readme', title: 'Add your .mp3 files to resources/music/', artist: 'Modulus', file: '' }],
+    musicTracks: [{ id: 'music-readme', title: 'Add your .mp3 files to resources/music/', artist: 'Osiris', file: '' }],
 
     pdfResources: [
         { id: 'mech-guide-tab', title: 'Engineering Mechanics Study Guide', category: 'guides', file: 'resources/pdfs/engineering-mechanics-guide.pdf', demo: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf' },
@@ -195,7 +195,7 @@ const OSIRIS_CONFIG = {
     ],
 
     codingProjects: [
-        { id: 'p1', title: 'Modulus Platform', tag: 'Full-Stack', stack: 'HTML · CSS · JavaScript · Firebase', status: 'Live', description: 'Personal educational platform with auth, resources, AI assistant, and student hub.' },
+        { id: 'p1', title: 'Osiris Platform', tag: 'Full-Stack', stack: 'HTML · CSS · JavaScript · Firebase', status: 'Live', description: 'Personal educational platform with auth, resources, AI assistant, and student hub.' },
         { id: 'p2', title: 'MATLAB Simulation Suite', tag: 'Engineering', stack: 'MATLAB · Simulink', status: 'In Progress', description: 'Placeholder — dynamics and control simulations for mechanical systems coursework.' },
         { id: 'p3', title: 'Peer Education Portal', tag: 'Web App', stack: 'JavaScript · Firestore', status: 'Planned', description: 'Placeholder — mentor matching and workshop scheduling for peer educators.' },
         { id: 'p4', title: 'CAD Automation Toolkit', tag: 'Design', stack: 'AutoCAD · Python', status: 'Planned', description: 'Placeholder — batch drawing utilities and template generators for design projects.' },
@@ -204,11 +204,11 @@ const OSIRIS_CONFIG = {
     ],
 
     motivationalQuotes: [
-        { text: 'The future belongs to those who learn, build, and share.', author: 'Modulus' },
+        { text: 'The future belongs to those who learn, build, and share.', author: 'Osiris' },
         { text: 'Excellence is not a destination — it is a continuous journey.', author: 'Simon Shitana' },
-        { text: 'Engineering humanity forward, one student at a time.', author: 'Modulus Agent' },
-        { text: 'Your struggle today becomes someone else\'s shortcut tomorrow.', author: 'Modulus Peer Education' },
-        { text: 'Unity in learning. Strength in collaboration.', author: 'Modulus' }
+        { text: 'Engineering humanity forward, one student at a time.', author: 'Osiris AI' },
+        { text: 'Your struggle today becomes someone else\'s shortcut tomorrow.', author: 'Osiris Peer Education' },
+        { text: 'Unity in learning. Strength in collaboration.', author: 'Osiris' }
     ]
 };
 
@@ -224,7 +224,7 @@ function getAcademicStatus(year) {
     const yearOfStudy = referenceYearOfStudy + (currentYear - referenceYear);
     if (yearOfStudy < 1) return `Preparing to begin ${program}`;
     if (yearOfStudy <= undergradYears) return `${getOrdinal(yearOfStudy)} year ${program} student`;
-    return `${program} graduate · Modulus founder`;
+    return `${program} graduate · Osiris founder`;
 }
 
 function getGraduationTimeline() {
@@ -232,4 +232,3 @@ function getGraduationTimeline() {
     const undergradEnd = startYear + undergradYears - 1;
     return { undergradEnd, label: `BEng ${program} · Class of ${undergradEnd}` };
 }
-

@@ -23,6 +23,11 @@ resources/
 assets/
 images/
 
+# Keep the site logo in the repository while ignoring uploaded media.
+!assets/
+assets/*
+!assets/Osiris logo.png
+
 # If you prefer to keep small placeholder files only, use extension-level rules instead.
 # Common large/binary types (useful if you later re-enable resources/):
 # *.pdf
@@ -34,4 +39,3 @@ images/
 # *.jpg
 # *.jpeg
 # *.gif
-

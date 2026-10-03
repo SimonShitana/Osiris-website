@@ -6,10 +6,18 @@
     .header { padding: 0.5rem 0; }
     .navbar { flex-wrap: nowrap; }
     .logo-img, .header--scrolled .logo-img { height: 52px; max-width: min(45vw, 180px); object-fit: contain; }
-    .navbar__menu { width: min(84vw, 340px); height: 100dvh; overflow-y: auto; overscroll-behavior: contain; }
+    .navbar__menu {
+        width: min(84vw, 340px);
+        height: 100vh;
+        height: 100dvh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
     .navbar__list { align-items: stretch; }
     .navbar__list li { width: 100%; }
     .navbar__link { display: flex; align-items: center; min-height: 44px; white-space: normal; }
+    .navbar__hamburger { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
 
     .hero { min-height: 0; padding: 7rem 0 3rem; }
     .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
@@ -75,6 +83,10 @@
     img, video, iframe { max-width: 100%; }
     input, select, textarea { max-width: 100%; font-size: 16px; }
     .btn { min-height: 44px; }
+    .container > *, .section__header, .glass-card, .page-hero, .channel-layout > *,
+    .profile-layout > *, .chat-layout > * { min-width: 0; }
+    pre, code { overflow-wrap: anywhere; }
+    table { max-width: 100%; }
 }
 
 @media (max-width: 420px) {

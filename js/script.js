@@ -97,18 +97,26 @@ function initNavigation() {
     const menu = document.getElementById('navbarMenu');
     if (!hamburger || !menu) return;
 
-    hamburger.addEventListener('click', () => {
-        menu.classList.toggle('navbar__menu--open');
-        hamburger.classList.toggle('active');
-        document.body.style.overflow = menu.classList.contains('navbar__menu--open') ? 'hidden' : '';
-    });
+    const setMenuOpen = (open) => {
+        menu.classList.toggle('navbar__menu--open', open);
+        hamburger.classList.toggle('active', open);
+        hamburger.setAttribute('aria-expanded', String(open));
+        hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        document.body.style.overflow = open ? 'hidden' : '';
+    };
 
-    document.querySelectorAll('.navbar__link').forEach((link) => {
-        link.addEventListener('click', () => {
-            menu.classList.remove('navbar__menu--open');
-            hamburger.classList.remove('active');
-            document.body.style.overflow = '';
-        });
+    setMenuOpen(false);
+    hamburger.addEventListener('click', () => {
+        setMenuOpen(!menu.classList.contains('navbar__menu--open'));
+    });
+    menu.addEventListener('click', (event) => {
+        if (event.target.closest('.navbar__link')) setMenuOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menu.classList.contains('navbar__menu--open')) {
+            setMenuOpen(false);
+            hamburger.focus();
+        }
     });
 }
 
@@ -220,10 +228,10 @@ function initQuiz() {
     if (!quiz) return;
     const questions = [
         { q: 'What is peer education built on?', options: ['Competition', 'Students helping students', 'Only lectures', 'Paid tutoring only'], correct: 1 },
-        { q: 'Modulus shares resources to help you…', options: ['Cheat on exams', 'Learn from past materials', 'Skip classes', 'Avoid studying'], correct: 1 },
+        { q: 'Osiris shares resources to help you…', options: ['Cheat on exams', 'Learn from past materials', 'Skip classes', 'Avoid studying'], correct: 1 },
 
         { q: 'After mechanical engineering, Simon plans to study…', options: ['Law', 'Biomedical Engineering', 'Architecture', 'Finance'], correct: 1 },
-{ q: 'What colour palette does Modulus use?', options: ['Orange & yellow', 'Black, white & electric blue', 'Pink & purple', 'Green & brown'], correct: 1 }
+{ q: 'What colour palette does Osiris use?', options: ['Dark charcoal & orange', 'Blue & silver', 'Pink & purple', 'Green & brown'], correct: 0 }
     ];
     let current = 0, score = 0;
     const questionEl = document.getElementById('quizQuestion');
@@ -394,7 +402,7 @@ function initAIChat() {
     widget.id = 'osirisAIWidget';
     widget.className = 'ai-widget';
     widget.innerHTML = `
-<button type="button" class="ai-widget__toggle" id="aiToggle" aria-label="Open Modulus AI">
+<button type="button" class="ai-widget__toggle" id="aiToggle" aria-label="Open Osiris AI">
             <img src="${OSIRIS_CONFIG?.assets?.logo || 'assets/Osiris%20logo.png'}" alt="Osiris" style="width:28px;height:28px;object-fit:contain" />
         </button>
         <div class="ai-widget__panel" id="aiPanel" hidden>
@@ -606,7 +614,7 @@ function initPeerEducatorEmail() {
     if (!email) return;
 
     const mailtoBase = `mailto:${email}`;
-const mailtoWithSubject = `${mailtoBase}?subject=${encodeURIComponent('Modulus Peer Education Inquiry')}`;
+const mailtoWithSubject = `${mailtoBase}?subject=${encodeURIComponent('Osiris Peer Education Inquiry')}`;
 
     document.querySelectorAll('[data-peer-email]').forEach((el) => {
         if (el.tagName === 'A') {

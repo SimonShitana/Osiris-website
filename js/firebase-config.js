@@ -1,4 +1,4 @@
-// Firebase Modulus setup — Firestore + Auth only (modular v10+).
+// Firebase Osiris setup — Firestore + Auth only (modular SDK).
 // This file is intended to be included as a normal <script src="js/firebase-config.js"></script> (not type="module").
 
 (function () {
@@ -8,7 +8,7 @@
   const isFileProtocol = window.location.protocol === 'file:';
 
   if (isFileProtocol) {
-    console.info('Modulus: file:// detected — running in local mode (no live Firebase connection).');
+    console.info('Osiris: file:// detected — running in local mode (no live Firebase connection).');
     window.ModulusFirebase = {
       // mark ready false for safe guards
       ready: false,
@@ -29,13 +29,13 @@
   // live mode: fill ModulusFirebase asynchronously below
 
   const firebaseConfig = {
-    apiKey: "AIzaSyDGoyHspzIK9s2vkbjL033h8-4M_dsziiE",
-    authDomain: "symon-8ac14.firebaseapp.com",
-    projectId: "symon-8ac14",
-    storageBucket: "symon-8ac14.firebasestorage.app",
-    messagingSenderId: "532244774030",
-    appId: "1:532244774030:web:7bbbe5630ab1f893b5dddf",
-    measurementId: "G-JTHT9NL7X4"
+    apiKey: "AIzaSyAmgNXCWwHhl_7IGFwztY-d4KIdW7z_-F8",
+    authDomain: "appproject-8fb74.firebaseapp.com",
+    projectId: "appproject-8fb74",
+    storageBucket: "appproject-8fb74.firebasestorage.app",
+    messagingSenderId: "929414042618",
+    appId: "1:929414042618:web:6518362fb037550c65ca43",
+    measurementId: "G-QYG0GRVHKR"
   };
 
   (async () => {
@@ -74,9 +74,9 @@
         }
       };
 
-      console.log('Modulus: Firebase (Firestore/Auth) synced successfully!');
+      console.log('Osiris: Firebase (Firestore/Auth) synced successfully!');
     } catch (error) {
-      console.error('Modulus: Critical error during live Firebase init:', error);
+      console.error('Osiris: Critical error during live Firebase init:', error);
       window.ModulusFirebase = {
         ready: false,
         error,
@@ -89,4 +89,3 @@
     }
   })();
 })();
-
