@@ -86,8 +86,10 @@
       return s.photoURL || getLocalProfile(s.email)?.photoURL || defaultAvatar();
     },
     logout() {
-      if (useFirebase() && window.ModulusFirebase?.auth?.signOut) {
-        window.ModulusFirebase.auth.signOut().catch(() => {});
+      const auth = window.ModulusFirebase?.auth;
+      const signOut = window.ModulusFirebase?.authUtils?.signOut;
+      if (useFirebase() && auth && signOut) {
+        signOut(auth).catch((error) => console.error('Osiris: Firebase sign-out failed:', error));
       }
       localStorage.removeItem(SESSION_KEY);
       window.location.href = 'index.html';
@@ -139,11 +141,12 @@
 
         const EmailAuthProvider = window.ModulusFirebase?.authUtils?.EmailAuthProvider;
         const reauthWithCredential = window.ModulusFirebase?.authUtils?.reauthenticateWithCredential;
-        if (!EmailAuthProvider || !reauthWithCredential) throw new Error('Password change is not available in this build.');
+        const updatePassword = window.ModulusFirebase?.authUtils?.updatePassword;
+        if (!EmailAuthProvider || !reauthWithCredential || !updatePassword) throw new Error('Password change is not available in this build.');
 
         const credential = EmailAuthProvider.credential(session.email, currentPassword || '');
         await reauthWithCredential(user, credential);
-        await user.updatePassword(newPassword);
+        await updatePassword(user, newPassword);
         return true;
       }
 
@@ -168,13 +171,14 @@
 
       if (useFirebase()) {
         const auth = window.ModulusFirebase?.auth;
-        const createUserWithEmailAndPassword = auth?.createUserWithEmailAndPassword;
+        const createUserWithEmailAndPassword = window.ModulusFirebase?.authUtils?.createUserWithEmailAndPassword;
         if (!createUserWithEmailAndPassword) throw new Error('Firebase signup is not available in this build.');
 
         try {
-          const cred = await createUserWithEmailAndPassword(normalized, password);
-          if (cred?.user?.updateProfile) {
-            await cred.user.updateProfile({ displayName: name.trim() });
+          const cred = await createUserWithEmailAndPassword(auth, normalized, password);
+          const updateProfile = window.ModulusFirebase.authUtils.updateProfile;
+          if (cred?.user && updateProfile) {
+            await updateProfile(cred.user, { displayName: name.trim() });
           }
 
           const profile = await window.ModulusFirebase.dbHelpers.ensureUserProfile(cred.user.uid, {
@@ -226,11 +230,11 @@
 
       if (useFirebase()) {
         const auth = window.ModulusFirebase?.auth;
-        const signInWithEmailAndPassword = auth?.signInWithEmailAndPassword;
+        const signInWithEmailAndPassword = window.ModulusFirebase?.authUtils?.signInWithEmailAndPassword;
         if (!signInWithEmailAndPassword) throw new Error('Firebase sign-in is not available in this build.');
 
         try {
-          const cred = await signInWithEmailAndPassword(normalized, password);
+          const cred = await signInWithEmailAndPassword(auth, normalized, password);
 
           let photoURL = defaultAvatar();
           let displayName = cred.user.displayName || normalized.split('@')[0];
@@ -318,8 +322,13 @@
     });
   }
 
-  if (useFirebase() && window.ModulusFirebase?.auth?.onAuthStateChanged) {
-    window.ModulusFirebase.auth.onAuthStateChanged(async (user) => {
+  function attachFirebaseAuthStateListener() {
+    const firebase = window.ModulusFirebase;
+    const onAuthStateChanged = firebase?.authUtils?.onAuthStateChanged;
+    if (!firebase?.ready || !firebase.auth || !onAuthStateChanged || firebase.authStateListenerAttached) return;
+
+    firebase.authStateListenerAttached = true;
+    onAuthStateChanged(firebase.auth, async (user) => {
       if (!user || getPage() === 'index.html') return;
 
       const existing = OsirisAuth.getSession();
@@ -344,6 +353,8 @@
       });
     });
   }
+  window.addEventListener('osiris-firebase-ready', attachFirebaseAuthStateListener);
+  attachFirebaseAuthStateListener();
 
   const page = getPage();
   if (!PUBLIC_PAGES.includes(page) && !OsirisAuth.isAuthenticated()) {
@@ -497,4 +508,3 @@ function initRoleBoundaries() {
     welcome.classList.toggle('welcome-panel--student', !isAdmin);
   }
 }
-

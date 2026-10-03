@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const reply = document.getElementById('assignmentHelpReply');
     if (!form) return;
 
-    const email = OSIRIS_CONFIG?.founder?.email || 'osiris11978@gmail.com';
+    const email = OSIRIS_CONFIG?.founder?.email || 'simonshitana21@gmail.com';
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();

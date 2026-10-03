@@ -14,17 +14,16 @@
         const ready = window.ModulusFirebase?.ready;
         if (!ready) return null;
 
+        const { doc, getDoc, setDoc, updateDoc } = window.ModulusFirebase.firestoreUtils;
         const db = window.ModulusFirebase.db;
-
-        const ref = db.collection('profiles').doc(uid);
-
-        const snap = await ref.get();
+        const ref = doc(db, 'profiles', uid);
+        const snap = await getDoc(ref);
 
         const defaultPhoto = OSIRIS_CONFIG?.assets?.defaultAvatar || '';
 
-        if (!snap.exists) {
+        if (!snap.exists()) {
 
-            await ref.set({
+            await setDoc(ref, {
 
                 displayName: data.displayName || 'Student',
 
@@ -44,7 +43,7 @@
 
         } else {
 
-            await ref.update({
+            await updateDoc(ref, {
 
                 lastLoginAt: window.ModulusFirebase.firestoreUtils.serverTimestamp(),
 
@@ -54,7 +53,7 @@
 
         }
 
-        return (await ref.get()).data();
+        return (await getDoc(ref)).data();
 
     },
 
@@ -64,9 +63,10 @@
 
         if (!window.ModulusFirebase?.ready) return null;
 
-        const snap = await window.ModulusFirebase.db.collection('profiles').doc(uid).get();
+        const { doc, getDoc } = window.ModulusFirebase.firestoreUtils;
+        const snap = await getDoc(doc(window.ModulusFirebase.db, 'profiles', uid));
 
-        return snap.exists ? snap.data() : null;
+        return snap.exists() ? snap.data() : null;
 
     },
 
@@ -76,7 +76,8 @@
 
         if (!window.ModulusFirebase?.ready) return;
 
-        await window.ModulusFirebase.db.collection('profiles').doc(uid).update({
+        const { doc, updateDoc } = window.ModulusFirebase.firestoreUtils;
+        await updateDoc(doc(window.ModulusFirebase.db, 'profiles', uid), {
 
             ...updates,
 
@@ -92,17 +93,14 @@
 
         if (!window.ModulusFirebase?.ready) return [];
 
-        const snap = await window.ModulusFirebase.db.collection('profiles')
-
-            .where('role', '==', 'student')
-
-            .orderBy('lastLoginAt', 'desc')
-
-            .limit(100)
-
-            .get()
-
-            .catch(() => window.ModulusFirebase.db.collection('profiles').where('role', '==', 'student').limit(100).get());
+        const { collection, getDocs, query, where, orderBy, limit } = window.ModulusFirebase.firestoreUtils;
+        const students = collection(window.ModulusFirebase.db, 'profiles');
+        let snap;
+        try {
+            snap = await getDocs(query(students, where('role', '==', 'student'), orderBy('lastLoginAt', 'desc'), limit(100)));
+        } catch {
+            snap = await getDocs(query(students, where('role', '==', 'student'), limit(100)));
+        }
 
         return snap.docs.map((d) => ({ uid: d.id, ...d.data() }));
 
@@ -123,16 +121,14 @@
 
         if (!window.ModulusFirebase?.ready) return () => {};
 
-        return window.ModulusFirebase.db.collection('channelPosts')
-
-            .orderBy('createdAt', 'desc')
-
-            .onSnapshot(
-
+        const { collection, query, orderBy, onSnapshot } = window.ModulusFirebase.firestoreUtils;
+        return onSnapshot(
+            query(collection(window.ModulusFirebase.db, 'channelPosts'), orderBy('createdAt', 'desc')),
                 (snap) => callback(snap.docs.map((d) => ({ id: d.id, ...d.data() }))),
-
-                () => callback(null)
-
+                (error) => {
+                    console.error('Osiris: Could not subscribe to channel posts:', error);
+                    callback(null);
+                }
             );
 
     },
@@ -143,7 +139,8 @@
 
         if (!window.ModulusFirebase?.ready) throw new Error('Firebase not ready');
 
-        return window.ModulusFirebase.db.collection('channelPosts').add({
+        const { collection, addDoc } = window.ModulusFirebase.firestoreUtils;
+        return addDoc(collection(window.ModulusFirebase.db, 'channelPosts'), {
 
             ...post,
 
@@ -154,6 +151,30 @@
             comments: post.comments || []
 
         });
+
+    },
+
+    async publishProject(project) {
+
+        if (!window.ModulusFirebase?.ready) throw new Error('Firebase not ready');
+
+        const { collection, addDoc } = window.ModulusFirebase.firestoreUtils;
+        return addDoc(collection(window.ModulusFirebase.db, 'projects'), {
+
+            ...project,
+
+            createdAt: window.ModulusFirebase.firestoreUtils.serverTimestamp()
+
+        });
+
+    },
+
+    async deleteProject(id) {
+
+        if (!window.ModulusFirebase?.ready) throw new Error('Firebase not ready');
+
+        const { doc, deleteDoc } = window.ModulusFirebase.firestoreUtils;
+        await deleteDoc(doc(window.ModulusFirebase.db, 'projects', id));
 
     },
 
@@ -175,7 +196,8 @@
 
         }
 
-        return window.ModulusFirebase.db.collection('assignmentEnquiries').add({
+        const { collection, addDoc } = window.ModulusFirebase.firestoreUtils;
+        return addDoc(collection(window.ModulusFirebase.db, 'assignmentEnquiries'), {
 
             ...data,
 
@@ -193,18 +215,14 @@
 
         if (!window.ModulusFirebase?.ready) return () => {};
 
-        return window.ModulusFirebase.db.collection('chatMessages')
-
-            .orderBy('createdAt', 'asc')
-
-            .limitToLast(200)
-
-            .onSnapshot(
-
+        const { collection, query, orderBy, limitToLast, onSnapshot } = window.ModulusFirebase.firestoreUtils;
+        return onSnapshot(
+            query(collection(window.ModulusFirebase.db, 'chatMessages'), orderBy('createdAt', 'asc'), limitToLast(200)),
                 (snap) => callback(snap.docs.map((d) => ({ id: d.id, ...d.data() }))),
-
-                () => callback(null)
-
+                (error) => {
+                    console.error('Osiris: Could not subscribe to chat messages:', error);
+                    callback(null);
+                }
             );
 
     },
@@ -231,7 +249,8 @@
 
         }
 
-        const ref = await window.ModulusFirebase.db.collection('chatMessages').add({
+        const { collection, addDoc } = window.ModulusFirebase.firestoreUtils;
+        const ref = await addDoc(collection(window.ModulusFirebase.db, 'chatMessages'), {
 
             ...data,
 
@@ -259,7 +278,8 @@
 
         }
 
-        await window.ModulusFirebase.db.collection('chatMessages').doc(id).delete();
+        const { doc, deleteDoc } = window.ModulusFirebase.firestoreUtils;
+        await deleteDoc(doc(window.ModulusFirebase.db, 'chatMessages', id));
 
     },
 
@@ -269,7 +289,8 @@
 
         if (!window.ModulusFirebase?.ready) return;
 
-        return window.ModulusFirebase.db.collection('notifications').add({
+        const { collection, addDoc } = window.ModulusFirebase.firestoreUtils;
+        return addDoc(collection(window.ModulusFirebase.db, 'notifications'), {
 
             ...data,
 
@@ -285,22 +306,18 @@
 
     subscribeNotifications(email, callback) {
 
-        if (!window.ModulusFirebase?.ready || !email) return () => {};
+        const firebase = window.ModulusFirebase;
+        const authEmail = firebase?.auth?.currentUser?.email;
+        if (!firebase?.ready || !email || !authEmail || authEmail.toLowerCase() !== email.toLowerCase()) return () => {};
 
-        return window.ModulusFirebase.db.collection('notifications')
-
-            .where('email', '==', email)
-
-            .orderBy('createdAt', 'desc')
-
-            .limit(20)
-
-            .onSnapshot(
-
+        const { collection, query, where, orderBy, limit, onSnapshot } = firebase.firestoreUtils;
+        return onSnapshot(
+            query(collection(firebase.db, 'notifications'), where('email', '==', authEmail), orderBy('createdAt', 'desc'), limit(20)),
                 (snap) => callback(snap.docs.map((d) => ({ id: d.id, ...d.data() }))),
-
-                () => callback(null)
-
+                (error) => {
+                    console.error('Osiris: Could not subscribe to notifications:', error);
+                    callback(null);
+                }
             );
 
     },
@@ -315,7 +332,5 @@
 
 };
 
-// (intentionally no OsirisDB namespace; ModulusFirebase is the only supported namespace)
+window.OsirisDB = window.ModulusFirebase.dbHelpers;
 })();
-
-

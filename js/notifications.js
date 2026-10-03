@@ -286,23 +286,31 @@
 
             });
 
-            if (window.OsirisDB?.subscribeNotifications) {
-
+            let unsubscribe = null;
+            let subscribedEmail = '';
+            const syncFirestoreNotifications = () => {
+                const firebase = window.ModulusFirebase;
+                const user = firebase?.auth?.currentUser;
                 const email = sessionEmail();
-
-                if (email) {
-
-                    OsirisDB.subscribeNotifications(email, (items) => {
-
-                        if (!items?.length) return;
-
-                        items.forEach((n) => this.push(n.type, n.title, n.body, n.link));
-
-                    });
-
+                if (!firebase?.ready || !user?.email || user.email.toLowerCase() !== email.toLowerCase()) {
+                    unsubscribe?.();
+                    unsubscribe = null;
+                    subscribedEmail = '';
+                    return;
                 }
+                if (!window.OsirisDB?.subscribeNotifications || subscribedEmail === user.email) return;
 
-            }
+                unsubscribe?.();
+                subscribedEmail = user.email;
+                unsubscribe = OsirisDB.subscribeNotifications(user.email, (items) => {
+                    if (!items?.length) return;
+                    items.forEach((n) => this.push(n.type, n.title, n.body, n.link));
+                });
+            };
+
+            window.addEventListener('osiris-auth-change', syncFirestoreNotifications);
+            window.addEventListener('osiris-firebase-ready', syncFirestoreNotifications);
+            syncFirestoreNotifications();
 
         }
 
@@ -333,5 +341,4 @@
     document.addEventListener('DOMContentLoaded', () => OsirisNotifications.init());
 
 })();
-
 

@@ -68,7 +68,8 @@ service cloud.firestore {
 
         && request.resource.data.keys().hasAll(['studentName', 'subject', 'topic', 'details']);
 
-      allow read: if isAdmin();
+      allow read: if isAdmin()
+        || (isSignedIn() && resource.data.studentEmail == request.auth.token.email);
 
       allow update, delete: if isAdmin();
 
@@ -115,5 +116,4 @@ service cloud.firestore {
   }
 
 }
-
 

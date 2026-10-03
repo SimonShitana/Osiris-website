@@ -5,15 +5,21 @@
 
     .header { padding: 0.5rem 0; }
     .navbar { flex-wrap: nowrap; }
-    .logo-img, .header--scrolled .logo-img { height: 52px; max-width: min(45vw, 180px); object-fit: contain; }
-    .navbar__menu {
-        width: min(84vw, 340px);
-        height: 100vh;
-        height: 100dvh;
-        overflow-x: hidden;
-        overflow-y: auto;
-        overscroll-behavior: contain;
+    .navbar__collapse { display: none; }
+    .navbar__menu--collapsed .navbar__collapse { display: none; }
+    .navbar__menu, .navbar__menu--collapsed {
+        inset: 8px auto 8px 8px;
+        width: min(320px, calc(100vw - 16px));
+        padding: 1rem;
     }
+    .navbar__menu--collapsed .navbar__sidebar-head { flex-direction: row; justify-content: space-between; padding-inline: 0.25rem; }
+    .navbar__menu--collapsed .navbar__account-details { display: grid; }
+    .navbar__menu--collapsed .navbar__section { height: auto; padding: 0.8rem 0.75rem 0.25rem; margin: 0; background: none; font-size: 0.68rem; }
+    .navbar__menu--collapsed .navbar__section--account { margin-top: 0.55rem; padding-top: 0.9rem; border-top: 1px solid var(--glass-border); }
+    .navbar__menu--collapsed .navbar__link { justify-content: flex-start; padding: 0.65rem 0.85rem; }
+    .navbar__menu--collapsed .navbar__link > span:not(.nav-notify-badge) { display: inline; }
+    .navbar__menu--collapsed .nav-notify-badge { top: -2px; right: -6px; }
+    .logo-img, .header--scrolled .logo-img { height: 52px; max-width: min(45vw, 180px); object-fit: contain; }
     .navbar__list { align-items: stretch; }
     .navbar__list li { width: 100%; }
     .navbar__link { display: flex; align-items: center; min-height: 44px; white-space: normal; }

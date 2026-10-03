@@ -535,13 +535,13 @@ Admin login is separate from student Google sign-in — only Simon has publish a
 
 You'll find CV tips, internship guidance, and links to job boards. Engineering employers value project experience — check Projects to see what Simon has built and what's coming.
 
-For personal mentoring on career direction, email Simon at ${cfg.founder?.email || 'osiris11978@gmail.com'}.`;
+For personal mentoring on career direction, email Simon at ${cfg.founder?.email || 'simonshitana21@gmail.com'}.`;
     }
 
     if (q.includes('contact') || q.includes('email') || q.includes('simon') || q.includes('phone')) {
         return `${founder} is the owner and administrator of Osiris.
 
-Email: ${cfg.founder?.email || 'osiris11978@gmail.com'}
+Email: ${cfg.founder?.email || 'simonshitana21@gmail.com'}
 Phone: ${cfg.founder?.phone || '0817687816'}
 WhatsApp: https://wa.me/27817687816
 

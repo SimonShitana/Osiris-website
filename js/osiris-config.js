@@ -232,3 +232,5 @@ function getGraduationTimeline() {
     const undergradEnd = startYear + undergradYears - 1;
     return { undergradEnd, label: `BEng ${program} · Class of ${undergradEnd}` };
 }
+
+window.OSIRIS_CONFIG = OSIRIS_CONFIG;

@@ -1,4 +1,5 @@
 const PROJECTS_KEY = 'osiris_admin_projects';
+let unsubscribeProjects = null;
 
 function getAdminProjects() {
     try { return JSON.parse(localStorage.getItem(PROJECTS_KEY) || '[]'); } catch { return []; }
@@ -37,16 +38,26 @@ function renderProjectsFromList(list) {
             <p class="project-card__stack">${escapeProjectHtml(p.stack || p.tag || '')}</p>
             <p>${escapeProjectHtml(p.description)}</p>
             ${p.link ? `<a href="${p.link}" class="btn btn--ghost btn--sm" target="_blank" rel="noopener" style="margin-top:1rem">Open <i class="ri-arrow-right-line"></i></a>` : ''}
-            ${isAdmin && p.adminCreated ? `<button type="button" class="btn btn--ghost btn--sm project-delete" data-id="${p.id}" style="margin-top:1rem">Delete</button>` : ''}
+            ${isAdmin && p.adminCreated ? `<button type="button" class="btn btn--ghost btn--sm project-delete" data-id="${p.id}" data-source="${p.firestoreId ? 'firestore' : 'local'}" style="margin-top:1rem">Delete</button>` : ''}
         </article>
     `).join('');
 
 
     grid.querySelectorAll('.project-delete').forEach((btn) => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             if (!confirm('Delete this project/article?')) return;
-            saveAdminProjects(getAdminProjects().filter((p) => p.id !== btn.dataset.id));
-            renderProjects();
+            try {
+                if (btn.dataset.source === 'firestore') {
+                    await OsirisDB.deleteProject(btn.dataset.id);
+                } else {
+                    saveAdminProjects(getAdminProjects().filter((p) => p.id !== btn.dataset.id));
+                    renderProjects();
+                }
+            } catch (error) {
+                console.error('Osiris: Could not delete project:', error);
+                const msg = document.getElementById('projectMsg');
+                if (msg) msg.textContent = 'Could not delete project. Please try again.';
+            }
         });
     });
 
@@ -72,7 +83,7 @@ function initProjectComposer() {
         reader.readAsDataURL(file);
     });
 
-    document.getElementById('projectForm')?.addEventListener('submit', (e) => {
+    document.getElementById('projectForm')?.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const title = document.getElementById('projectTitle').value.trim();
@@ -80,60 +91,75 @@ function initProjectComposer() {
         const stack = document.getElementById('projectStack').value.trim();
         const description = document.getElementById('projectDescription').value.trim();
 
-        // Firestore path is best, but your project composer historically used localStorage.
-        // We keep localStorage as fallback.
-        (async () => {
-            try {
-                if (window.OsirisFirebase?.ready && window.OsirisDB) {
-                    // No helper exists yet in firebase-db.js for projects CRUD; fallback to local.
-                    throw new Error('No projects helper configured');
-                }
-            } catch (_) {
+        const project = {
+            title,
+            kind,
+            tag: kind,
+            stack,
+            description,
+            status: 'Published',
+            image: imageData,
+            adminCreated: true
+        };
+
+        const submitButton = document.querySelector('#projectForm [type="submit"]');
+        if (submitButton) submitButton.disabled = true;
+        try {
+            if (window.ModulusFirebase?.ready && window.OsirisDB?.publishProject) {
+                await OsirisDB.publishProject(project);
+            } else {
                 const projects = getAdminProjects();
-                projects.unshift({
-                    id: 'project_' + Date.now(),
-                    title,
-                    kind,
-                    tag: kind,
-                    stack,
-                    description,
-                    status: 'Published',
-                    image: imageData,
-                    adminCreated: true,
-                    createdAt: new Date().toISOString()
-                });
+                projects.unshift({ ...project, id: 'project_' + Date.now(), createdAt: new Date().toISOString() });
                 saveAdminProjects(projects);
-                e.target.reset();
-                imageData = null;
-                renderProjectsFromList(allProjects());
-                const msg = document.getElementById('projectMsg');
-                if (msg) {
-                    msg.textContent = 'Published to personal projects.';
-                    setTimeout(() => { msg.textContent = ''; }, 3000);
-                }
             }
-        })();
+            e.target.reset();
+            imageData = null;
+            const msg = document.getElementById('projectMsg');
+            if (msg) {
+                msg.textContent = window.ModulusFirebase?.ready
+                    ? 'Project published.'
+                    : 'Published to personal projects on this device.';
+                setTimeout(() => { msg.textContent = ''; }, 3000);
+            }
+        } catch (error) {
+            console.error('Osiris: Could not publish project:', error);
+            const msg = document.getElementById('projectMsg');
+            if (msg) msg.textContent = 'Could not publish project. Please try again.';
+        } finally {
+            if (submitButton) submitButton.disabled = false;
+        }
     });
 }
 
 function initProjectsRealtime() {
-    // Render initial list (configured + admin-created localStorage)
+    unsubscribeProjects?.();
+    unsubscribeProjects = null;
+
+    // Render configured and local projects immediately, before Firebase initializes.
     renderProjectsFromList(allProjects());
 
     // Real-time Firestore updates if the helper is available.
     try {
         if (window.OsirisFirebase?.ready && OsirisFirebase.db) {
-            return OsirisFirebase.db.collection('projects')
-                .orderBy('createdAt', 'desc')
-                .limit(100)
-                .onSnapshot((snap) => {
-                    const firestoreProjects = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-                    // Merge: configured projects + firestore projects. Keep local adminCreated too.
-                    const merged = [...firestoreProjects, ...configuredProjectsOnly()];
+            const { collection, query, orderBy, limit, onSnapshot } = OsirisFirebase.firestoreUtils;
+            return onSnapshot(
+                query(collection(OsirisFirebase.db, 'projects'), orderBy('createdAt', 'desc'), limit(100)),
+                (snap) => {
+                    const firestoreProjects = snap.docs.map((d) => ({
+                        id: d.id,
+                        firestoreId: d.id,
+                        adminCreated: true,
+                        ...d.data()
+                    }));
+                    const merged = [...firestoreProjects, ...getAdminProjects(), ...configuredProjectsOnly()];
                     renderProjectsFromList(merged);
-                });
+                },
+                (error) => console.error('Osiris: Could not subscribe to Firestore projects:', error)
+            );
         }
-    } catch (_) {}
+    } catch (error) {
+        console.error('Osiris: Could not initialize Firestore projects:', error);
+    }
 
     return null;
 }
@@ -150,5 +176,5 @@ function configuredProjectsOnly() {
 document.addEventListener('DOMContentLoaded', () => {
     initProjectComposer();
     initProjectsRealtime();
+    window.addEventListener('osiris-firebase-ready', initProjectsRealtime);
 });
-

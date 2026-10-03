@@ -4,7 +4,7 @@ Personal educational platform. No advertisements.
 
 ## 1. Create Firestore Database
 
-1. Open [Firebase Console](https://console.firebase.google.com/) → project **appproject-8fb74**
+1. Open [Firebase Console](https://console.firebase.google.com/) → project **peerconnect-a06f4**
 2. Go to **Build → Firestore Database**
 3. Click **Create database**
 4. Choose **Start in production mode** (you will paste rules below)
@@ -14,12 +14,12 @@ Personal educational platform. No advertisements.
 
 1. **Build → Authentication → Get started**
 2. Enable **Email/Password** sign-in
-3. (Optional) Add **osiris11978@gmail.com** as a project owner in **Project settings → Users and permissions**
+3. (Optional) Add **simonshitana21@gmail.com** as a project owner in **Project settings → Users and permissions**
 
 ## 3. Enable Storage (profile photos)
 
 1. **Build → Storage → Get started**
-2. Use default bucket: `appproject-8fb74.firebasestorage.app`
+2. Use default bucket: `peerconnect-a06f4.firebasestorage.app`
 
 ### Storage rules (Firebase Console → Storage → Rules)
 
@@ -52,9 +52,11 @@ Copy the contents of `firestore.rules` in this folder.
 ```bash
 npm install -g firebase-tools
 firebase login
-firebase init firestore   # select existing project appproject-8fb74
-firebase deploy --only firestore:rules
+firebase init firestore   # select existing project peerconnect-a06f4
+firebase deploy --only firestore:rules --project peerconnect-a06f4
 ```
+
+Publish the rules after changing them in this repository. Permission changes do not take effect in Firestore until they are deployed.
 
 ## 5. Create Your Admin Profile (one-time)
 
@@ -68,12 +70,16 @@ After a student signs up via the website, promote your account to admin in Fires
 
 ## 6. Collections (created automatically)
 
+Firestore creates each collection when the first document is written; do not create placeholder documents.
+
 | Collection | Purpose |
 |---|---|
-| `profiles` | User name, email, role, photo URL |
-| `channelPosts` | Admin channel writings (when synced to Firestore) |
+| `profiles` | User name, email, role, photo URL; created during account setup |
+| `channelPosts` | Admin channel writings |
 | `assignmentEnquiries` | Student assignment help requests |
-| `projects` | Optional dynamic project list (static config used by default) |
+| `projects` | Optional live project feed; the current website composer stores new entries locally |
+| `chatMessages` | Student chat messages |
+| `notifications` | Per-user notifications |
 
 ## 7. Folder Structure
 
@@ -113,4 +119,4 @@ Open `index.html` in a browser or use Live Server. Firebase Auth requires HTTPS 
 
 ---
 
-**Contact:** osiris11978@gmail.com
+**Contact:** simonshitana21@gmail.com

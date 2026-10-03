@@ -285,6 +285,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     renderActivity(session.email);
+    window.addEventListener('osiris-auth-change', (event) => {
+        const activeSession = event.detail || OsirisAuth?.getSession();
+        if (activeSession?.email) renderActivity(activeSession.email);
+    });
 
     if (OsirisAuth.isAdmin()) loadAdminStudents();
 
@@ -317,15 +321,15 @@ function renderActivity(email) {
 
 
     // If Firestore is available, also show recent assignment enquiries for this student.
-    if (window.OsirisFirebase?.ready && window.OsirisDB?.submitAssignmentEnquiry) {
+    const firebase = window.ModulusFirebase;
+    const authEmail = firebase?.auth?.currentUser?.email;
+    if (firebase?.ready && window.OsirisDB?.submitAssignmentEnquiry
+        && authEmail && authEmail.toLowerCase() === email.toLowerCase()) {
         try {
-            const db = OsirisFirebase.db;
+            const db = firebase.db;
             if (db) {
-                db.collection('assignmentEnquiries')
-                    .where('studentEmail', '==', email)
-                    .orderBy('createdAt', 'desc')
-                    .limit(5)
-                    .get()
+                const { collection, query, where, orderBy, limit, getDocs } = firebase.firestoreUtils;
+                getDocs(query(collection(db, 'assignmentEnquiries'), where('studentEmail', '==', authEmail), orderBy('createdAt', 'desc'), limit(5)))
                     .then((snap) => {
                         const enquiries = snap.docs.map((d) => ({
                             text: `Enquiry: ${d.data().subject || ''} · ${d.data().topic || ''}`.trim() || 'Enquiry submitted',
@@ -338,9 +342,11 @@ function renderActivity(email) {
                             ? merged.map((a) => `<li><span>${escapeHtml(a.text)}</span><time>${new Date(a.time).toLocaleDateString()}</time></li>`).join('')
                             : '<li style="color:var(--text-muted);border:none">No recent activity yet.</li>';
                     })
-                    .catch(() => {});
+                    .catch((error) => console.error('Osiris: Could not load assignment enquiry activity:', error));
             }
-        } catch (_) {}
+        } catch (error) {
+            console.error('Osiris: Could not initialize assignment enquiry activity:', error);
+        }
     }
 }
 
@@ -444,5 +450,3 @@ function escapeHtml(str) {
     return d.innerHTML;
 
 }
-
-
